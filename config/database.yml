@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
+  # ↑ Rails usa a DATABASE_URL do environment.
+  # No compose.yml definimos: postgres://user:pass@db:5432/dbname
+  # Quando DATABASE_URL existe, Rails ignora host, username, password individuais.
+
+development:
+  <<: *default
+  database: academia_development
+  # ↑ O nome específico para dev. Mas a URL do compose.yml sobrescreve.
+
+test:
+  <<: *default
+  database: academia_test
+  # ↑ Banco separado para testes. Nunca misture dev e test.
+
+production:
+  <<: *default
+  database: academia_production
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
