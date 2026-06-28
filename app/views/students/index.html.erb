@@ -1,0 +1,34 @@
+<!-- app/views/alunos/index.html.erb -->
+
+<!-- O layout (application.html.erb) envolve essa view -->
+
+<div class="container">
+  <div class="flex justify-between items-center">
+    <h1>Alunos</h1>
+    <%= link_to "Novo Aluno", new_aluno_path, class: "btn btn-primary" %>
+    <!--
+      link_to = helper que gera <a href="/alunos/new">Novo Aluno</a>
+      new_aluno_path = helper de rota gerado pelo resources :alunos
+      Evita hardcodar URLs. Se a rota mudar, o helper atualiza automaticamente.
+    -->
+  </div>
+
+  <!-- @alunos vem do controller -->
+  <% @alunos.each do |aluno| %>
+    <!-- <%= %> = executa Ruby E exibe o resultado -->
+    <!-- <% %> = executa Ruby mas NÃO exibe -->
+    <div class="card">
+      <h3><%= aluno.nome %></h3>
+      <p><%= aluno.email %></p>
+      <p>Plano: <%= aluno.plano.nome %></p>
+
+      <%= link_to "Ver", aluno_path(aluno) %>
+      <%= link_to "Editar", edit_aluno_path(aluno) %>
+      <%= link_to "Remover", aluno_path(aluno),
+                  data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+    </div>
+  <% end %>
+
+  <!-- Paginação com Kaminari -->
+  <%= paginate @alunos %>
+</div>

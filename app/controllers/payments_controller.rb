@@ -1,13 +1,13 @@
 class PaymentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_payment, only: [:show, :edit, :update, :destroy]
+    before_action :set_payment, only: [:edit, :update]
 
     def index
         @payment = Payment.all
     end
 
-    def show
-    end
+    # def show
+    # end
 
     def new
         @payment = Payment.new
@@ -22,21 +22,21 @@ class PaymentsController < ApplicationController
         end
     end
 
-    def edit
-    end
+    # def edit
+    # end
 
-    def update
-        if @payment.update(payment_params)
-            redirect_to @payment,
-        else
-            render :edit, status: :unprocessable_entity
-        end
-    end
+    # def update
+    #     if @payment.update(payment_params)
+    #         redirect_to @payment,
+    #     else
+    #         render :edit, status: :unprocessable_entity
+    #     end
+    # end
 
-    def destroy
-        @payment.destroy, notice: "Pagamento excluido."
-        redirect_to payment_path
-    end
+    # def destroy
+    #     @payment.destroy, notice: "Pagamento excluido."
+    #     redirect_to payment_path
+    # end
 
     private
 
