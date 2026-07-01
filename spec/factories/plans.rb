@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :plan do
-    active { false }
-    duration_days { 1 }
-    name_plan { "MyString" }
-    price { "9.99" }
+    active { true }
+    duration_days { 30 }
+    name_plan { "Plano Padrão" }
+    price { "99.99" }
   end
 end
