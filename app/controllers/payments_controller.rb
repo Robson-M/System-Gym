@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_payment, only: [:edit, :update]
+    before_action :set_payment, only: [ :edit, :update ]
 
     def index
         @payment = Payment.all
@@ -34,8 +34,8 @@ class PaymentsController < ApplicationController
     # end
 
     # def destroy
-    #     @payment.destroy, notice: "Pagamento excluido."
-    #     redirect_to payment_path
+    #     @payment.destroy
+    #     redirect_to payment_path, notice: "Pagamento excluido."
     # end
 
     private

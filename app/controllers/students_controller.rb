@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_student, only: [:show, :edit, :update, :destroy]
+    before_action :set_student, only: [ :show, :edit, :update, :destroy ]
 
     def index
         @student = Student.all
@@ -34,8 +34,8 @@ class StudentsController < ApplicationController
     end
 
     def destroy
-        @student.destroy, notice: "Aluno removido."
-        redirect_to student_path
+        @student.destroy
+        redirect_to student_path, notice: "Aluno removido."
     end
 
     private

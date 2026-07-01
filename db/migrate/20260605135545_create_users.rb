@@ -9,6 +9,5 @@ class CreateUsers < ActiveRecord::Migration[8.1]
     end
 
     add_index :users, :cpf, unique: true
-
   end
 end

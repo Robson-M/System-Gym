@@ -2,7 +2,7 @@ class Payment < ApplicationRecord
     belongs_to :student
 
     before_save :calculate_due_date
-    
+
     before_save :comparasion
 
     def active?
@@ -14,7 +14,7 @@ class Payment < ApplicationRecord
 
     def calculate_due_date
         self.due_date = Date.current + student.plan.duration_days.days
-    end 
+    end
 
     def comparasion
         self.status = amount == student.plan.price

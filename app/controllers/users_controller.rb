@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_user ,only: [:show, :edit, :update, :destroy]
+    before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
-    # def index 
+    # def index
     #     @user = User.all
     # end
 
@@ -34,8 +34,8 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        @user.destroy, notice: "Usuario removido."
-        redirect_to user_path
+        @user.destroy
+        redirect_to user_path, notice: "Usuario removido."
     end
 
     private

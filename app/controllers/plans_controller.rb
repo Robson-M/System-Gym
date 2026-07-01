@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_plan, only: [:show, :edit, :update, :destroy]
+    before_action :set_plan, only: [ :show, :edit, :update, :destroy ]
 
     def index
         @plan = Plan.all
@@ -34,8 +34,8 @@ class PlansController < ApplicationController
     end
 
     def destroy
-        @plan.destroy, notice: "!!!!Plano removido!!!!"
-        redirect_to plan_path
+        @plan.destroy
+        redirect_to plan_path, notice: "!!!!Plano removido!!!!"
     end
 
     private
