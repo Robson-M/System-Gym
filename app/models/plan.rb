@@ -1,3 +1,3 @@
 class Plan < ApplicationRecord
-    has_one :student
+    has_many :students, dependent: :destroy
 end

@@ -40,4 +40,5 @@ group :test do
   gem "shoulda-matchers"
   gem "capybara"
   gem "selenium-webdriver"
+  gem "database_cleaner-active_record"
 end
