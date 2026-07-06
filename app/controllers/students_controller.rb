@@ -1,9 +1,8 @@
 class StudentsController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_student, only: [ :show, :edit, :update, :destroy ]
 
     def index
-        @student = Student.all
+        @students = Student.all
     end
 
     def show

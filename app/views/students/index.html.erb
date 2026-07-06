@@ -18,8 +18,6 @@
     <!-- <%= %> = executa Ruby E exibe o resultado -->
     <!-- <% %> = executa Ruby mas NÃO exibe -->
     <div class="card">
-      <h3><%= aluno.nome %></h3>
-      <p><%= aluno.email %></p>
       <p>Plano: <%= aluno.plano.nome %></p>
 
       <%= link_to "Ver", aluno_path(aluno) %>
