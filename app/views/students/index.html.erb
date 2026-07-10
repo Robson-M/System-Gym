@@ -1,32 +1,282 @@
-<!-- app/views/alunos/index.html.erb -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - NextFit Admin</title>
+</head>
+<body>
 
-<!-- O layout (application.html.erb) envolve essa view -->
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar__body">
+            <div class="sidebar__brand">
+                <div class="sidebar__logo" aria-hidden="true">N</div>
+                <span class="sidebar__name">NextFit Admin</span>
+            </div>
 
-<div class="container">
-  <div class="flex justify-between items-center">
-    <h1>Alunos</h1>
-    <%= link_to "Novo Aluno", new_aluno_path, class: "btn btn-primary" %>
-    <!--
-      link_to = helper que gera <a href="/alunos/new">Novo Aluno</a>
-      new_aluno_path = helper de rota gerado pelo resources :alunos
-      Evita hardcodar URLs. Se a rota mudar, o helper atualiza automaticamente.
-    -->
-  </div>
+            <nav aria-label="Menu principal">
+                <ul class="sidebar__nav">
+                    <li class="nav-item nav-item--active">
+                        <a href="#" class="nav-item__link" aria-current="page">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Alunos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            Planos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
-  <!-- @alunos vem do controller -->
-  <% @alunos.each do |aluno| %>
-    <!-- <%= %> = executa Ruby E exibe o resultado -->
-    <!-- <% %> = executa Ruby mas NÃO exibe -->
-    <div class="card">
-      <p>Plano: <%= aluno.plano.nome %></p>
+        <footer class="sidebar__footer">
+            <div class="avatar avatar--md avatar--admin" aria-hidden="true">RC</div>
+            <div>
+                <span class="sidebar__user-name">Rodrigo Camargo</span>
+                <span class="sidebar__user-role">Administrador</span>
+            </div>
+        </footer>
+    </aside>
 
-      <%= link_to "Ver", aluno_path(aluno) %>
-      <%= link_to "Editar", edit_aluno_path(aluno) %>
-      <%= link_to "Remover", aluno_path(aluno),
-                  data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-    </div>
-  <% end %>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main">
 
-  <!-- Paginação com Kaminari -->
-  <%= paginate @alunos %>
-</div>
+        <!-- CABEÇALHO -->
+        <header class="page-header">
+            <div>
+                <h1 class="page-header__title">Painel de Controle</h1>
+                <span class="page-header__date">Quinta-feira, 2 de Julho de 2026 &bull; 17:45</span>
+            </div>
+            <div class="page-header__actions">
+                <button class="btn-icon" aria-label="Ver notificações">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="btn-icon__dot" aria-label="Notificações pendentes"></span>
+                </button>
+                <button class="btn-primary">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Novo Aluno
+                </button>
+            </div>
+        </header>
+
+        <!-- BUSCA -->
+        <section class="search-hero" aria-label="Busca de alunos">
+            <div class="search-bar">
+                <svg class="search-bar__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" class="search-bar__input" value="Mariana" placeholder="Pesquisar aluno por nome, CPF ou matrícula..." aria-label="Campo de busca">
+                <button class="search-bar__submit">Buscar</button>
+            </div>
+            <div class="search-filters" role="group" aria-label="Filtros rápidos">
+                <span class="search-filters__label">Filtros rápidos:</span>
+                <button class="filter-btn">Todos</button>
+                <button class="filter-btn filter-btn--active" aria-pressed="true">Ativos</button>
+                <button class="filter-btn">Inativos</button>
+                <button class="filter-btn">Vencendo</button>
+            </div>
+        </section>
+
+        <!-- RESULTADOS -->
+        <section class="search-results" aria-label="Resultados da busca">
+            <h2 class="section-label">Resultados da pesquisa para "Mariana" (2 encontrados)</h2>
+            <div class="results-grid">
+
+                <div class="results-card">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Aluno</th>
+                                <th scope="col">Matrícula</th>
+                                <th scope="col">Plano</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="is-selected" aria-selected="true">
+                                <td>
+                                    <div class="student-cell">
+                                        <div class="avatar avatar--sm avatar--blue" aria-hidden="true">MS</div>
+                                        <div>
+                                            <span class="student-cell__name">Mariana Silva Santos</span>
+                                            <span class="student-cell__email">mariana.santos@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>#2026-0941</td>
+                                <td>Plano Anual Gold</td>
+                                <td><span class="badge badge--active">Ativo</span></td>
+                                <td>
+                                    <div class="row-actions">
+                                        <button class="btn-row-action" aria-label="Ver perfil de Mariana Silva Santos">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        </button>
+                                        <button class="btn-row-action" aria-label="Editar Mariana Silva Santos">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="student-cell">
+                                        <div class="avatar avatar--sm avatar--gray" aria-hidden="true">MR</div>
+                                        <div>
+                                            <span class="student-cell__name">Mariana Ribeiro Costa</span>
+                                            <span class="student-cell__email">mari.ribeiro@email.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>#2024-1102</td>
+                                <td>Mensal Livre</td>
+                                <td><span class="badge badge--inactive">Inativo</span></td>
+                                <td>
+                                    <div class="row-actions">
+                                        <button class="btn-row-action" aria-label="Ver perfil de Mariana Ribeiro Costa">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        </button>
+                                        <button class="btn-row-action" aria-label="Editar Mariana Ribeiro Costa">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Card de perfil expandido -->
+                <div class="profile-card">
+                    <div>
+                        <div class="profile-card__header">
+                            <div class="avatar avatar--lg avatar--blue" aria-hidden="true">MS</div>
+                            <div>
+                                <h3 class="profile-card__name">Mariana Silva Santos</h3>
+                                <span class="badge badge--active">Matrícula Ativa</span>
+                            </div>
+                        </div>
+                        <dl class="profile-card__info">
+                            <div>
+                                <dt class="info-item__label">CPF</dt>
+                                <dd class="info-item__value">412.583.921-04</dd>
+                            </div>
+                            <div>
+                                <dt class="info-item__label">Plano Atual</dt>
+                                <dd class="info-item__value">Anual Gold (10/12)</dd>
+                            </div>
+                            <div>
+                                <dt class="info-item__label">Próximo Vencimento</dt>
+                                <dd class="info-item__value info-item__value--primary">14/08/2026</dd>
+                            </div>
+                            <div>
+                                <dt class="info-item__label">Status de Pagamento</dt>
+                                <dd class="info-item__value info-item__value--success">Em dia</dd>
+                            </div>
+                            <div>
+                                <dt class="info-item__label">Último Check-in</dt>
+                                <dd class="info-item__value">Hoje às 07:12</dd>
+                            </div>
+                            <div>
+                                <dt class="info-item__label">Frequência Mensal</dt>
+                                <dd class="info-item__value">18 dias / mês</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="profile-card__actions">
+                        <button class="btn-outline">Ver Perfil Completo</button>
+                        <button class="btn-accent">Renovar / Alterar</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MÉTRICAS -->
+        <section class="metrics-grid" aria-label="Métricas do painel">
+            <div class="metric-card">
+                <div class="metric-card__header">
+                    <span class="metric-card__label">Alunos Ativos</span>
+                    <div class="metric-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                </div>
+                <div class="metric-card__value">1.248</div>
+                <div class="metric-card__trend trend--up">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    +4,2% <span class="trend__context">vs mês ant.</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-card__header">
+                    <span class="metric-card__label">Mensalidades do Mês</span>
+                    <div class="metric-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                </div>
+                <div class="metric-card__value">R$ 68.420</div>
+                <div class="metric-card__trend trend--up">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    +8,1% <span class="trend__context">meta atingida</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-card__header">
+                    <span class="metric-card__label">Planos Vencendo (7d)</span>
+                    <div class="metric-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                </div>
+                <div class="metric-card__value">34</div>
+                <div class="metric-card__trend trend--warn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Ação recomendada
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-card__header">
+                    <span class="metric-card__label">Novas Matrículas</span>
+                    <div class="metric-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+                    </div>
+                </div>
+                <div class="metric-card__value">52</div>
+                <div class="metric-card__trend trend--up">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    +12% <span class="trend__context">crescimento</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
