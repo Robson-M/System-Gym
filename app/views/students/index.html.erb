@@ -82,19 +82,27 @@
                 </button>
                 <button class="btn-primary">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Novo Aluno
+                    <%= link_to "Novo Aluno", new_student_path %>
                 </button>
             </div>
         </header>
 
         <!-- BUSCA -->
-        <section class="search-hero" aria-label="Busca de alunos">
-            <div class="search-bar">
-                <svg class="search-bar__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="search" class="search-bar__input" value="Mariana" placeholder="Pesquisar aluno por nome, CPF ou matrícula..." aria-label="Campo de busca">
-                <button class="search-bar__submit">Buscar</button>
-            </div>
-            <div class="search-filters" role="group" aria-label="Filtros rápidos">
+        
+            <%= form_with url: students_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, local: true, class:"search-bar" do |form| %>
+              <svg class="search-bar__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              
+              <%= form.text_field :q, 
+                value: params[:q],
+                class: "search-bar__input",
+                placeholder: "Buscar aluno por nome ou matricula",
+                data: { action: "input->search#submit" } %>
+                
+              <%= form.submit "Buscar", class:"search-bar__submit" %>
+            <% end %>
+
+            <section class="search-hero" role="group" aria-label="Filtros rápidos">
+            <div class="search-filters"  aria-label="">
                 <span class="search-filters__label">Filtros rápidos:</span>
                 <button class="filter-btn">Todos</button>
                 <button class="filter-btn filter-btn--active" aria-pressed="true">Ativos</button>
@@ -104,8 +112,12 @@
         </section>
 
         <!-- RESULTADOS -->
+
+        <turbo-frame id="search_results">
+        <% if @students&.any? %>
+
         <section class="search-results" aria-label="Resultados da busca">
-            <h2 class="section-label">Resultados da pesquisa para "Mariana" (2 encontrados)</h2>
+            <h2 class="section-label">Resultados da pesquisa para <%= params[:q]&.upcase %> (<%= @students.count %> ENCONTRADOS)</h2>
             <div class="results-grid">
 
                 <div class="results-card">
@@ -125,8 +137,13 @@
                                     <div class="student-cell">
                                         <div class="avatar avatar--sm avatar--blue" aria-hidden="true">MS</div>
                                         <div>
-                                            <span class="student-cell__name">Mariana Silva Santos</span>
-                                            <span class="student-cell__email">mariana.santos@email.com</span>
+
+
+                                            <% @students.each do |student| %>
+
+                                            <span class="student-cell__name"><%= student.name_student %></span>
+
+
                                         </div>
                                     </div>
                                 </td>
@@ -168,6 +185,12 @@
                                     </div>
                                 </td>
                             </tr>
+
+
+                            <% end %>
+                            <% end %>                    
+                            </turbo-frame>
+
                         </tbody>
                     </table>
                 </div>

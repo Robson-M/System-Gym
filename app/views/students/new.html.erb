@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Aluno - NextFit Admin</title>
+    <% content_for :head do %>
+        <%= stylesheet_link_tag "student_new", "data-turbo-track": "reload" %>
+    <% end %>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar__body">
+            <div class="sidebar__brand">
+                <div class="sidebar__logo" aria-hidden="true">N</div>
+                <span class="sidebar__name">NextFit Admin</span>
+            </div>
+
+            <nav aria-label="Menu principal">
+                <ul class="sidebar__nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item nav-item--active">
+                        <a href="#" class="nav-item__link" aria-current="page">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Alunos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            Planos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            Relatórios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-item__link">
+                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                            Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <footer class="sidebar__footer">
+            <div class="avatar avatar--md avatar--admin" aria-hidden="true">RC</div>
+            <div>
+                <span class="sidebar__user-name">Rodrigo Camargo</span>
+                <span class="sidebar__user-role">Administrador</span>
+            </div>
+        </footer>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main">
+
+        <!-- CABEÇALHO -->
+        <header class="page-header">
+            <div>
+                <nav class="page-header__breadcrumb" aria-label="Navegação estrutural">
+                    <a href="#">Dashboard</a>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                    <a href="#">Alunos</a>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span>Novo Aluno</span>
+                </nav>
+                <h1 class="page-header__title">Novo Aluno</h1>
+            </div>
+            <button class="btn-ghost" aria-label="Voltar para a lista de alunos">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Voltar
+            </button>
+        </header>
+
+        <!-- LAYOUT DO FORMULÁRIO -->
+        <div class="form-layout">
+
+            <!-- FORMULÁRIO PRINCIPAL -->
+            <form action="#" method="post" novalidate>
+
+                <!-- SEÇÃO: DADOS PESSOAIS (students) -->
+
+                
+
+                <div class="form-card">
+                    <div class="form-section">
+                        <div class="form-section__header">
+                            <div class="form-section__icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div>
+                                <div class="form-section__title">Dados Pessoais</div>
+                                <div class="form-section__subtitle">Informações do aluno — tabela <code>students</code></div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <!-- name_student -->
+                            <div class="form-group form-col-full">
+                                <label class="form-label" for="name_student">
+                                    Nome completo <sup>*</sup>
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    <input
+                                        type="text"
+                                        id="name_student"
+                                        name="student[name_student]"
+                                        class="form-input"
+                                        placeholder="Ex.: Mariana Silva Santos"
+                                        autocomplete="name"
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+                             <!-- cpf -->
+                            <div class="form-group">
+                                <label class="form-label" for="birth_date">
+                                    CPF
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    <input
+                                        type="date"
+                                        id="birth_date"
+                                        name="student[birth_date]"
+                                        class="form-input"
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- email -->
+                            <div class="form-group">
+                                <label class="form-label" for="phone">
+                                    Email
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="student[phone]"
+                                        class="form-input"
+                                        placeholder="(00) 00000-0000"
+                                        autocomplete="tel"
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- birth_date -->
+                            <div class="form-group">
+                                <label class="form-label" for="birth_date">
+                                    Data de nascimento
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    <input
+                                        type="date"
+                                        id="birth_date"
+                                        name="student[birth_date]"
+                                        class="form-input"
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- phone -->
+                            <div class="form-group">
+                                <label class="form-label" for="phone">
+                                    Telefone / WhatsApp
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="student[phone]"
+                                        class="form-input"
+                                        placeholder="(00) 00000-0000"
+                                        autocomplete="tel"
+                                    >
+                                </div>
+                            </div>
+
+
+
+
+                        
+
+
+                            <div class="form-group form-col-full">
+                                <label class="form-label" for="name_student">
+                                    Nome completo <sup>*</sup>
+                                </label>
+                                <div class="form-input-wrapper">
+                                    <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    <input
+                                        type="text"
+                                        id="name_student"
+                                        name="student[name_student]"
+                                        class="form-input"
+                                        placeholder="Ex.: Mariana Silva Santos"
+                                        autocomplete="name"
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+                    <% end %>
+
+                    <!-- SEÇÃO: MATRÍCULA (plan_id) -->
+                    <div class="form-section">
+                        <div class="form-section__header">
+                            <div class="form-section__icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <div>
+                                <div class="form-section__title">Matrícula</div>
+                                <div class="form-section__subtitle">Plano vinculado ao aluno — chave estrangeira <code>plan_id</code></div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <!-- plan_id -->
+                            <div class="form-group form-col-full">
+                                <label class="form-label" for="plan_id">
+                                    Plano <sup>*</sup>
+                                </label>
+                                <div class="form-select-wrapper">
+                                    <select id="plan_id" name="student[plan_id]" class="form-select" required>
+                                        <option value="" disabled selected>Selecione um plano...</option>
+                                        <option value="1">Mensal Livre — R$ 89,90 / 30 dias</option>
+                                        <option value="2">Trimestral — R$ 239,90 / 90 dias</option>
+                                        <option value="3">Semestral — R$ 419,90 / 180 dias</option>
+                                        <option value="4">Anual Gold — R$ 719,90 / 365 dias</option>
+                                    </select>
+                                    <svg class="form-select-arrow" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                                </div>
+                                <span class="form-hint">O plano determina o valor das mensalidades e a duração da matrícula.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AÇÕES DO FORMULÁRIO -->
+                    <div class="form-actions">
+                        <button type="reset" class="btn-ghost">
+                            Limpar campos
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Salvar aluno
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+</body>
+</html>

@@ -3,6 +3,8 @@ class StudentsController < ApplicationController
 
     def index
         @students = Student.all
+        @students = Student.where("name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+        @students ||= Student.all
     end
 
     def show
