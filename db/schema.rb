@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_15_131034) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_19_003019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -37,11 +37,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_131034) do
 
   create_table "students", force: :cascade do |t|
     t.date "birth_date"
+    t.string "cpf_student"
     t.datetime "created_at", null: false
+    t.string "email_student"
+    t.integer "house_number"
     t.string "name_student", null: false
+    t.string "neighborhood"
     t.string "phone"
     t.bigint "plan_id", null: false
     t.string "status"
+    t.string "street"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["plan_id"], name: "index_students_on_plan_id"
