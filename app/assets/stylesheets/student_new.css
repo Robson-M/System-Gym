@@ -277,6 +277,7 @@
             font-weight: 600;
             font-family: var(--font);
             color: var(--color-muted);
+            text-decoration: none;
             cursor: pointer;
             transition: var(--transition);
         }
@@ -367,7 +368,7 @@
         }
 
         .form-grid--3 {
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 400px 1fr 300px;
         }
 
         .form-col-full { grid-column: 1 / -1; }

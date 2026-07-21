@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
 
     def new
         @student = Student.new
+        @plans = Plan.all
     end
 
     def create
@@ -19,6 +20,8 @@ class StudentsController < ApplicationController
         if @student.save
             redirect_to @student, notice: "Aluno cadastrado com sucesso!"
         else
+            @plans = Plan.all
+            flash.now[:alert] = "Erro ao cadastrar aluno. Verifique os campos informados."
             render :new, status: :unprocessable_entity
         end
     end
@@ -46,6 +49,6 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:name_student, :phone)
+        params.require(:student).permit(:name_student, :cpf_student, :email_student, :birth_date, :phone, :neighborhood, :street, :house_number, :status, :plan_id)
     end
 end
