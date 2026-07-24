@@ -18,6 +18,7 @@ class UsersController < ApplicationController
         if @user.save
             redirect_to @user, notice: "Usuario cadastrado!"
         else
+            flash.now[:alert] = "Erro ao cadastrar usuario. Verifique os campos informados."
             render :new, status: :unprocessable_entity
         end
     end
@@ -45,6 +46,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:cpf, :password_digest)
+        params.require(:user).permit(:cpf, :encrypted_password, :role)
     end
 end
