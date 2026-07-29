@@ -12,6 +12,8 @@ gem "bootsnap", require: false  # inicialização mais rápida
 gem "propshaft"             # pipeline de assets (Rails 8 default)
 gem "turbo-rails"           # Hotwire Turbo
 gem "stimulus-rails"        # Hotwire Stimulus
+gem 'rails-i18n'
+gem 'devise-i18n'
 
 # Auth
 gem "devise"                # autenticação
