@@ -513,7 +513,6 @@ RESULTADOS DE BUSCA
 
 .results-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
     gap: 24px;
 }
 
@@ -574,6 +573,7 @@ RESULTADOS DE BUSCA
 
 .student-cell__name {
     display: block;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -872,4 +872,13 @@ Avisos de Erros
 
 .error {
     margin-left: 25px;
+}
+
+.success {
+    background-color: #d4edda; 
+    color: #155724; 
+    border: 1px solid #c3e6cb; 
+    padding: 12px 16px; 
+    border-radius: 6px; 
+    margin-bottom: 16px;
 }
