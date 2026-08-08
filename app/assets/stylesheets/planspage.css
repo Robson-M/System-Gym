@@ -1,0 +1,97 @@
+.plan-grid {
+    display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+     gap: 24px;
+}
+
+.plan-preview {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.plan-preview__header {
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.plan-preview__header-icon {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255,255,255,.2);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plan-preview__header-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+}
+
+.plan-preview__header-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.plan-preview__header-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,.7);
+}
+
+.plan-preview__body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.plan-preview__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.plan-preview__row-label { color: var(--color-muted); }
+
+.plan-preview__row-value {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.plan-preview__empty {
+    padding: 24px 20px;
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.plan-preview__empty svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--color-border);
+    fill: none;
+    stroke-width: 1.5;
+    margin: 0 auto 8px;
+    display: block;
+}
+
+/* Botões */
+
+.btn-inspect {
+    flex: 1; 
+    justify-content: center; 
+    padding: 8px; 
+    font-size: 13px;
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Plano | NextFit Admin</title>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "forms" %>
+</head>
+<body>
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar__body">
+      <div class="sidebar__brand">
+        <div class="sidebar__logo" aria-hidden="true">N</div>
+        <span class="sidebar__name">NextFit Admin</span>
+      </div>
+
+      <nav aria-label="Menu principal">
+        <ul class="sidebar__nav">
+          <li class="nav-item">
+            <%= link_to students_path, class: "nav-item__link" do %>
+              <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Alunos
+            <% end %>
+          </li>
+          <li class="nav-item nav-item--active">
+            <%= link_to plans_path, class: "nav-item__link" do %>
+              <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              Planos
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-item__link">
+              <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Financeiro
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-item__link">
+              <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Relatórios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-item__link">
+              <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Configurações
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="sidebar__footer">
+      <div class="avatar avatar--md avatar--admin" aria-hidden="true">
+        <%= current_user.name_user.split.map(&:first).first(2).join.upcase rescue "AD" %>
+      </div>
+      <div>
+        <span class="sidebar__user-name"><%= current_user.name_user rescue "Administrador" %></span>
+        <span class="sidebar__user-role">Administrador</span>
+      </div>
+    </footer>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+
+    <!-- CABEÇALHO -->
+    <header class="page-header">
+      <div>
+        <nav class="page-header__breadcrumb" aria-label="Navegação estrutural">
+          <a href="/">Dashboard</a>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          <%= link_to "Planos", plans_path %>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Editar Plano</span>
+        </nav>
+        <h1 class="page-header__title">Editar Plano</h1>
+      </div>
+
+      <%= link_to plans_path, class: "btn-ghost" do %>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Voltar
+      <% end %>
+    </header>
+
+    <!-- ERROS DE VALIDAÇÃO -->
+    <% if @plan.errors.any? %>
+      <div class="form-card" style="margin-bottom: 24px; padding: 16px 24px;">
+        <% @plan.errors.full_messages.each do |msg| %>
+          <p style="font-size: 13px; color: var(--color-danger); margin-bottom: 4px;">• <%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- FORMULÁRIO -->
+    <%= form_with model: @plan, class: "form-layout" do |form| %>
+
+      <div class="form-card">
+        <div class="form-section">
+          <div class="form-section__header">
+            <div class="form-section__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div>
+              <h2 class="form-section__title">Informações do Plano</h2>
+              <p class="form-section__subtitle">Dados do plano — tabela <code>plans</code></p>
+            </div>
+          </div>
+
+          <!-- Nome do plano -->
+          <div class="form-grid">
+            <div class="form-group form-col-full">
+              <label class="form-label">Nome do plano <sup>*</sup></label>
+              <div class="form-input-wrapper">
+                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                <%= form.text_field :name_plan, class: "form-input", placeholder: "Ex.: Plano Mensal" %>
+              </div>
+            </div>
+
+            <!-- Preço -->
+            <div class="form-group">
+              <label class="form-label">Valor (R$) <sup>*</sup></label>
+              <div class="form-input-wrapper">
+                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <%= form.number_field :price, class: "form-input", placeholder: "Ex.: 120.00" %>
+              </div>
+              <span class="form-hint">Valor mensal cobrado ao aluno.</span>
+            </div>
+
+            <!-- Duração -->
+            <div class="form-group">
+              <label class="form-label">Duração (dias) <sup>*</sup></label>
+              <div class="form-input-wrapper">
+                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <%= form.number_field :duration_days, class: "form-input", placeholder: "Ex.: 30" %>
+              </div>
+              <span class="form-hint">Duração do plano em dias.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SEÇÃO 2: Configurações ── -->
+        <div class="form-section">
+          <div class="form-section__header">
+            <div class="form-section__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div>
+              <h2 class="form-section__title">Configurações</h2>
+              <p class="form-section__subtitle">Status de disponibilidade do plano.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group form-col-full">
+              <label class="form-label">Status do plano <sup>*</sup></label>
+              <div class="form-select-wrapper">
+                <%= form.select :active, options_for_select([
+                        ["Ativo — disponível para novos alunos", true],
+                        ["Inativo — oculto para novos alunos",  false]
+                      ], @plan.active), {}, class: "form-select" %>
+                <svg class="form-select-arrow" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <span class="form-hint">Planos inativos não aparecem no cadastro de novos alunos.</span>
+            </div>
+          </div>
+        </div>
+    <% end %>
+        <!-- AÇÕES -->
+        <div class="form-actions">
+          <div class="btn-conteiner">
+          
+              <%= button_to plan_path(@plan), method: :delete, data: { turbo_confirm: "Excluir este plano permanentemente?" }, class: "btn-ghost btn-actions btn-action-remove" do %>
+                <svg style="display:inline;width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;margin-right:4px;" viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Excluir
+              <% end %>
+
+              <%= link_to plans_path, class: "btn-ghost btn-actions" do %>
+                Cancelar
+              <% end %>
+
+            <button type="submite", class="btn-primary btn-actions">Salvar alterações</button>
+          </div>
+        </div>
+
+      </div>
+
+    
+
+  </main>
+
+</body>
+</html>

@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root "students#index"
   devise_for :users
 
+  resource :settings, only: [:show, :edit, :update]
+
+  resources :plans
+
   resources :students do
     resources :payments, only: [ :index, :new, :create, :destroy ]
   end

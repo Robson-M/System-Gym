@@ -3,7 +3,7 @@ class PlansController < ApplicationController
     before_action :set_plan, only: [ :show, :edit, :update, :destroy ]
 
     def index
-        @plan = Plan.all
+        @plans = Plan.all
     end
 
     def show
@@ -16,7 +16,7 @@ class PlansController < ApplicationController
     def create
         @plan = Plan.new(plan_params)
         if @plan.save
-            redirect_to @plan, notice: "Plano criado!"
+            redirect_to edit_plan_path(@plan), notice: "Plano criado!"
         else
             render :new, status: :unprocessable_entity
         end
@@ -26,8 +26,8 @@ class PlansController < ApplicationController
     end
 
     def update
-        if @plan.update(plan.params)
-            redirect_to @plan, notice: "Plano atualizado"
+        if @plan.update(plan_params)
+            redirect_to plans_path, notice: "Plano atualizado"
         else
             render :edit, status: :unprocessable_entity
         end
@@ -35,7 +35,7 @@ class PlansController < ApplicationController
 
     def destroy
         @plan.destroy
-        redirect_to plan_path, notice: "!!!!Plano removido!!!!"
+        redirect_to plans_path, notice: "!!!!Plano removido!!!!"
     end
 
     private
