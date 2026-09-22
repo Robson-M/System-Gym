@@ -1,50 +1,58 @@
 class PaymentsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :set_payment, only: [ :edit, :update ]
+    before_action :set_payment, only: [ :show, :create, :edit, :update, :destroy ]
 
     def index
-        @payment = Payment.all
+        @payments = Payment.all
+        @student = Student.find(params[:student_id])
+        @payments = @student.payments.order(paid_at: :desc)
+        @payment = @student.payments.build
+        @plans = Plan.all
     end
 
-    # def show
-    # end
+    def show
+        @student = Student.find(params[:id])
+    end
 
     def new
-        @payment = Payment.new
     end
 
     def create
-        @payment = Payment.new(payment_params)
+        @payment = @student.payments.build(payment_params)
+
         if @payment.save
-            redirect_to @payment, notice: "Pagamento realizado com sucesso!"
+            redirect_to student_payments_path(@student), notice: "Pagamento realizado com sucesso!"
         else
-            render :new, status: :unprocessable_entity
+            @payments = @student.payments.order(paid_at: :desc)
+            @plans = Plan.all
+            flash.now[:alert] = @payment.errors.full_messages.to_sentence
+            render "payments/index", status: :unprocessable_entity
         end
     end
 
-    # def edit
-    # end
+    def edit
+    end
 
-    # def update
-    #     if @payment.update(payment_params)
-    #         redirect_to @payment,
-    #     else
-    #         render :edit, status: :unprocessable_entity
-    #     end
-    # end
+    def update
+        if @payment.update(payment_params)
+            redirect_to @payment, notice: "Pagamento efetuado com sucesso"
+        else
+            render :edit, status: :unprocessable_entity
+        end
+    end
 
-    # def destroy
-    #     @payment.destroy
-    #     redirect_to payment_path, notice: "Pagamento excluido."
-    # end
+    def destroy
+        @payment = @student.payments.find(params[:id])
+        @payment.destroy
+        redirect_to student_payments_path(@student), notice: "Pagamento excluido."
+    end
 
     private
 
     def set_payment
-        @payment = Payment.find(params[:id])
+        @student = Student.find(params[:student_id])
     end
 
     def payment_params
-        params.require(:payment).permit(:amount, :due_date, :paid_at, :payment_method, :status)
+        params.require(:payment).permit(:amount, :due_date, :paid_at, :payment_method, :status, :plan_id)
     end
 end

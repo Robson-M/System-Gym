@@ -3,8 +3,9 @@ class StudentsController < ApplicationController
 
     def index
         @students = Student.all
-        @students = Student.where("name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+        @students = Student.where("name_student ILIKE ?", "%#{params[:q]}%") if params[:q].present?
         @students ||= Student.all
+        @payments = Payment.all
     end
 
     def show
@@ -17,7 +18,17 @@ class StudentsController < ApplicationController
 
     def create
         @student = Student.new(student_params)
+
         if @student.save
+            @student.payments.create!(
+                plan_id: @student.plan_id,
+                amount: @student.plan.price,
+                payment_method: params[:payment_method],
+                paid_at: Date.today,
+                due_date: Date.today + @student.plan.duration_days.days,
+                status: "paid"
+            )
+            CheckDueDatesJob.perform_now
             redirect_to @student, notice: "Aluno cadastrado com sucesso!"
         else
             @plans = Plan.all
@@ -27,6 +38,7 @@ class StudentsController < ApplicationController
     end
 
     def edit
+        @plans = Plan.all
     end
 
     def update
@@ -39,7 +51,7 @@ class StudentsController < ApplicationController
 
     def destroy
         @student.destroy
-        redirect_to student_path, notice: "Aluno removido."
+        redirect_to students_path, notice: "Aluno removido."
     end
 
     private
@@ -49,6 +61,6 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:name_student, :cpf_student, :email_student, :birth_date, :phone, :neighborhood, :street, :house_number, :status, :plan_id)
+        params.require(:student).permit(:name_student, :cpf_student, :email_student, :birth_date, :phone, :neighborhood, :street, :house_number, :status, :plan_id, :payment_method)
     end
 end

@@ -35,7 +35,7 @@ class PlansController < ApplicationController
 
     def destroy
         @plan.destroy
-        redirect_to plans_path, notice: "!!!!Plano removido!!!!"
+        redirect_to plans_path, alert: "!!!!Plano removido!!!!"
     end
 
     private
