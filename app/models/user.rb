@@ -1,12 +1,18 @@
 class User < ApplicationRecord
-
+    
     devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:cpf]
 
-    validates :cpf, presence: true, length: { is: 11 }, uniqueness: true, numericality: true
+    validates :cpf, presence: true
+    validates :cpf, length: { is: 11 }, uniqueness: true, numericality: true, allow_blank: true
 
     validates :name_user, presence: true
-    
-    validates :phone_user, presence: true, length: { is: 9..11 }, numericality: true
+
+    validates :phone_user, presence: true
+    validates :phone_user, numericality: true, allow_blank: true
+
+    def user_photo
+        name_user.split.map(&:first).first(2).join.upcase rescue "AD" 
+    end
 
     def email_required?
         false
@@ -28,7 +34,7 @@ class User < ApplicationRecord
 
 private
 
-def password_required?
-  new_record? || password.present?
-end
+    def password_required?
+        new_record? || password.present?
+    end
 end

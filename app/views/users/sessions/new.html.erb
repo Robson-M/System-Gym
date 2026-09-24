@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextFit Admin - Login</title>
+    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "loginpage" %>
+</head>
+<body>
+    <%= form_with url: user_session_path, method: :post, scope: :user, class:"login-wrapper" do |form| %>
+            <div class="login-card">
+                
+                <div class="login-header">
+                    <div class="login-logo">N</div>
+                    <div>
+                        <h1 class="login-title">NextFit Admin</h1>
+                        <p class="login-subtitle">Faça login para acessar o painel</p>
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <%= form.text_field :cpf, class:"form-input", placeholder:"000.000.000-00" %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Senha</label>
+                        <%= form.password_field :password, class:"form-input", placeholder:"••••••••" %>
+                    </div>
+
+                    <%= form.submit "Entrar no sistema", class:"btn-primary btn-login" %>
+
+                <div class="login-footer">
+                    Esqueceu sua senha? <a href="#">Recuperar acesso</a>
+                </div>
+            </div>
+    <% end %>
+</body>
+</html>
