@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo - NextFit Admin</title>
+    <%= stylesheet_link_tag "application" %>
 </head>
 <body>
 
@@ -17,23 +18,17 @@
 
             <nav aria-label="Menu principal">
                 <ul class="sidebar__nav">
-                    <li class="nav-item nav-item--active">
-                        <a href="#" class="nav-item__link" aria-current="page">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-                            Dashboard
-                        </a>
-                    </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-item__link">
+                        <%= link_to students_path, class:"nav-item__link" do %>
                             <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             Alunos
-                        </a>
+                        <% end %>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-item__link">
+                        <%= link_to plans_path, class:"nav-item__link" do %>
                             <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                             Planos
-                        </a>
+                        <% end %>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-item__link">
@@ -48,11 +43,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-item__link">
+                        <%= link_to settings_path, class:"nav-item__link" do %>
                             <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                             Configurações
-                        </a>
+                        <% end %>
                     </li>
+                    <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"btn-ghost" %>
                 </ul>
             </nav>
         </div>
@@ -60,8 +56,12 @@
         <footer class="sidebar__footer">
             <div class="avatar avatar--md avatar--admin" aria-hidden="true">RC</div>
             <div>
-                <span class="sidebar__user-name">Rodrigo Camargo</span>
-                <span class="sidebar__user-role">Administrador</span>
+                <% if user_signed_in? %>
+                    <span class="sidebar__user-name"><%= current_user.name_user %></span>
+                    <span class="sidebar__user-role">Administrador</span>
+                <% else %>
+                    <%= link_to "Fazer Login", new_user_session_path, class: "btn-primary" %>
+                <% end %>
             </div>
         </footer>
     </aside>
@@ -72,18 +72,19 @@
         <!-- CABEÇALHO -->
         <header class="page-header">
             <div>
-                <h1 class="page-header__title">Painel de Controle</h1>
-                <span class="page-header__date">Quinta-feira, 2 de Julho de 2026 &bull; 17:45</span>
+                <h1 class="page-header__title">Alunos</h1>
+                <span class="page-header__date"><%= l Time.current, format: :long %></span>
             </div>
             <div class="page-header__actions">
                 <button class="btn-icon" aria-label="Ver notificações">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                     <span class="btn-icon__dot" aria-label="Notificações pendentes"></span>
                 </button>
-                <button class="btn-primary">
+                
+                <%= link_to new_student_path, class:"btn-primary" do %>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    <%= link_to "Novo Aluno", new_student_path %>
-                </button>
+                    Novo Aluno
+                <% end %>
             </div>
         </header>
 
@@ -126,118 +127,46 @@
                             <tr>
                                 <th scope="col">Aluno</th>
                                 <th scope="col">Matrícula</th>
+                                <th scope="col">Telefone</th>
                                 <th scope="col">Plano</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr class="is-selected" aria-selected="true">
-                                <td>
-                                    <div class="student-cell">
-                                        <div class="avatar avatar--sm avatar--blue" aria-hidden="true">MS</div>
-                                        <div>
-
-
-                                            <% @students.each do |student| %>
-
-                                            <span class="student-cell__name"><%= student.name_student %></span>
-
-
+                            <% @students.each do |student| %>
+                                <tr class="is-selected" aria-selected="true">
+                                    <td>
+                                        <div class="student-cell">
+                                            <div>    
+                                                <span class="student-cell__name"><%= student.name_student %></span>
+                                                <span class="student-cell__email"><%= student.cpf_student.to_s.gsub(/\D/, '').sub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4') %></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>#2026-0941</td>
-                                <td>Plano Anual Gold</td>
-                                <td><span class="badge badge--active">Ativo</span></td>
-                                <td>
-                                    <div class="row-actions">
-                                        <button class="btn-row-action" aria-label="Ver perfil de Mariana Silva Santos">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                        </button>
-                                        <button class="btn-row-action" aria-label="Editar Mariana Silva Santos">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="student-cell">
-                                        <div class="avatar avatar--sm avatar--gray" aria-hidden="true">MR</div>
-                                        <div>
-                                            <span class="student-cell__name">Mariana Ribeiro Costa</span>
-                                            <span class="student-cell__email">mari.ribeiro@email.com</span>
+                                    </td>
+                            
+                                    <td><%= student.created_at.strftime("%d/%m/%Y") %></td>
+                                    <td><%= student.phone.to_s.gsub(/\D/, '').sub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3') %></td>
+                                    <td><%= student.payments.first&.name_plan_payment %></td>
+                                    <td><span class="badge badge--active"><%= student.payments.first&.due_date_active %></span></td>
+                                    <td>
+                                        <div class="row-actions">
+                                            <%= link_to student_payments_path(student), class:"btn-row-action" do %>
+                                                <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                            <% end %>
+                                            <%= link_to student_path(student), class:"btn-row-action" do %>
+                                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                            <% end %>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>#2024-1102</td>
-                                <td>Mensal Livre</td>
-                                <td><span class="badge badge--inactive">Inativo</span></td>
-                                <td>
-                                    <div class="row-actions">
-                                        <button class="btn-row-action" aria-label="Ver perfil de Mariana Ribeiro Costa">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                        </button>
-                                        <button class="btn-row-action" aria-label="Editar Mariana Ribeiro Costa">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-
+                                    </td>
+                                </tr>
                             <% end %>
                             <% end %>                    
-                            </turbo-frame>
-
                         </tbody>
+        </turbo-frame>
                     </table>
-                </div>
-
-                <!-- Card de perfil expandido -->
-                <div class="profile-card">
-                    <div>
-                        <div class="profile-card__header">
-                            <div class="avatar avatar--lg avatar--blue" aria-hidden="true">MS</div>
-                            <div>
-                                <h3 class="profile-card__name">Mariana Silva Santos</h3>
-                                <span class="badge badge--active">Matrícula Ativa</span>
-                            </div>
-                        </div>
-                        <dl class="profile-card__info">
-                            <div>
-                                <dt class="info-item__label">CPF</dt>
-                                <dd class="info-item__value">412.583.921-04</dd>
-                            </div>
-                            <div>
-                                <dt class="info-item__label">Plano Atual</dt>
-                                <dd class="info-item__value">Anual Gold (10/12)</dd>
-                            </div>
-                            <div>
-                                <dt class="info-item__label">Próximo Vencimento</dt>
-                                <dd class="info-item__value info-item__value--primary">14/08/2026</dd>
-                            </div>
-                            <div>
-                                <dt class="info-item__label">Status de Pagamento</dt>
-                                <dd class="info-item__value info-item__value--success">Em dia</dd>
-                            </div>
-                            <div>
-                                <dt class="info-item__label">Último Check-in</dt>
-                                <dd class="info-item__value">Hoje às 07:12</dd>
-                            </div>
-                            <div>
-                                <dt class="info-item__label">Frequência Mensal</dt>
-                                <dd class="info-item__value">18 dias / mês</dd>
-                            </div>
-                        </dl>
-                    </div>
-                    <div class="profile-card__actions">
-                        <button class="btn-outline">Ver Perfil Completo</button>
-                        <button class="btn-accent">Renovar / Alterar</button>
-                    </div>
-                </div>
-
+                </div>                
             </div>
         </section>
 

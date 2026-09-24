@@ -20,6 +20,7 @@ gem "devise"                # autenticação
 
 # Background Jobs
 gem "sidekiq"        # jobs assíncronos
+gem "sidekiq-cron"
 
 # Paginação
 gem "kaminari"

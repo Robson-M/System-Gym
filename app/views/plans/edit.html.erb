@@ -87,13 +87,11 @@
     </header>
 
     <!-- ERROS DE VALIDAÇÃO -->
-    <% if @plan.errors.any? %>
       <div class="form-card" style="margin-bottom: 24px; padding: 16px 24px;">
-        <% @plan.errors.full_messages.each do |msg| %>
-          <p style="font-size: 13px; color: var(--color-danger); margin-bottom: 4px;">• <%= msg %></p>
+        <% flash.each do |tipo, msg| %>
+          <p>• <%= tipo %> mensagem <%= msg %></p>
         <% end %>
       </div>
-    <% end %>
 
     <!-- FORMULÁRIO -->
     <%= form_with model: @plan, class: "form-layout" do |form| %>

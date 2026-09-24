@@ -10,3 +10,13 @@ pt-BR:
         current_password: "Senha atual"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
+      student:
+        birth_date: "Data de aniversario"
+        cpf_student: "CPF"
+        email_student: "Email"
+        house_number: "Numero da casa"
+        name_student: "Nome"
+        neighborhood: "Bairro"
+        phone: "Telefone"
+        plan_id: "Plano"
+        street: "Cidade"

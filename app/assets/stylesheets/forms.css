@@ -1,0 +1,287 @@
+
+/* ============================================================
+CABEÇALHO DA PÁGINA
+============================================================ */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.page-header__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--color-muted);
+    margin-bottom: 6px;
+}
+
+.page-header__breadcrumb a {
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.page-header__breadcrumb a:hover { color: var(--color-primary); }
+
+.page-header__breadcrumb svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.page-header__breadcrumb span { color: var(--color-primary); font-weight: 500; }
+
+.page-header__title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--color-text);
+}
+
+/* ============================================================
+Botões Formulario aluno
+============================================================ */
+
+.btn-conteiner {
+    display: flex; 
+    gap: 8px; 
+    margin-left: auto;
+}
+
+.btn-actions {
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.btn-action-remove {
+    padding: 8px 14px;
+    font-size: 13px;
+    padding: 8px 14px; 
+    font-size: 13px; 
+    color: var(--color-danger); 
+    border-color: rgba(229, 62, 62, 0.3); 
+    background-color: var(--color-danger-bg);
+}
+
+/* ============================================================
+FORM CARD
+============================================================ */
+.form-layout {
+    display: grid;
+    gap: 24px;
+    align-items: start;
+}
+
+.form-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Seções do formulário */
+.form-section {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.form-section:last-child { border-bottom: none; }
+
+.form-section__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.form-section__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-accent-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.form-section__icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.form-section__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.form-section__subtitle {
+    font-size: 12px;
+    color: var(--color-muted);
+    margin-top: 2px;
+}
+
+/* Grid de campos */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-grid--3 {
+    grid-template-columns: 400px 1fr 300px;
+}
+
+.form-col-full { grid-column: 1 / -1; }
+
+/* Grupo de campo */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.form-label sup {
+    color: var(--color-danger);
+    font-size: 11px;
+}
+
+.form-hint {
+    font-size: 11px;
+    color: var(--color-muted);
+    margin-top: 4px;
+}
+
+/* botão do formulario payments */
+
+.form-group-btn {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+}
+
+/* Inputs */
+.form-input,
+.form-select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--color-text);
+    transition: var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-input::placeholder { color: #94a3b8; }
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    background-color: var(--color-surface);
+    border-color: var(--color-accent);
+    box-shadow: var(--focus-ring);
+}
+
+/* formulario do aluno */
+.form-exit {
+    display: flex;
+    align-items: center;
+}
+
+/* Wrapper para select com ícone de seta */
+.form-select-wrapper {
+    position: relative;
+}
+
+.form-select-wrapper .form-select {
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+    stroke: var(--color-muted);
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Wrapper para input com ícone */
+.form-input-wrapper {
+    position: relative;
+}
+
+.form-input-wrapper .form-input {
+    padding-left: 42px;
+}
+
+.form-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+    stroke: var(--color-muted);
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Separador de senha */
+.form-divider {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 4px 0 8px;
+}
+
+/* Footer de ações */
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 32px;
+    background-color: #fafbfc;
+    border-top: 1px solid var(--color-border);
+}
+
+/* ============================================================
+RESPONSIVO
+============================================================ */
+@media (max-width: 1280px) {
+    .form-layout { grid-template-columns: 1fr; }
+    .form-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid--3 { grid-template-columns: 1fr; }
+}
