@@ -10,19 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_19_003019) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_18_165415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "gyms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "gym_address"
+    t.string "gym_email"
+    t.string "gym_name", null: false
+    t.string "gym_phone"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount", null: false
+    t.decimal "amount"
     t.datetime "created_at", null: false
     t.date "due_date"
+    t.string "name_plan_payment"
     t.date "paid_at"
     t.string "payment_method"
+    t.bigint "plan_id"
     t.boolean "status"
     t.bigint "student_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_payments_on_plan_id"
     t.index ["student_id"], name: "index_payments_on_student_id"
   end
 
@@ -44,24 +56,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_19_003019) do
     t.string "name_student", null: false
     t.string "neighborhood"
     t.string "phone"
-    t.bigint "plan_id", null: false
-    t.string "status"
+    t.bigint "plan_id"
+    t.boolean "status"
     t.string "street"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["plan_id"], name: "index_students_on_plan_id"
-    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.date "birth_date_user"
     t.string "cpf", null: false
     t.datetime "created_at", null: false
     t.string "encrypted_password", null: false
-    t.string "role", null: false
+    t.string "name_user"
+    t.string "phone_user"
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
     t.datetime "updated_at", null: false
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "payments", "students"
-  add_foreign_key "students", "plans"
-  add_foreign_key "students", "users"
 end
