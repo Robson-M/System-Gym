@@ -3,78 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Aluno - NextFit Admin</title>
-    
-    <!-- Linkando o arquivo CSS de formulários mantendo suas boas práticas -->
+    <title>Editar Aluno</title>
     <%= stylesheet_link_tag "forms" %>
     <%= stylesheet_link_tag "application" %>
 </head>
 <body>
-
-     <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar__body">
-            <div class="sidebar__brand">
-                <div class="sidebar__logo" aria-hidden="true">N</div>
-                <span class="sidebar__name">NextFit Admin</span>
-            </div>
-
-            <nav aria-label="Menu principal">
-                <ul class="sidebar__nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-item__link">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            Alunos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-item__link">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                            Planos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-item__link">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            Financeiro
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-item__link">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                            Relatórios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-item__link">
-                            <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                            Configurações
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-        <footer class="sidebar__footer">
-            <div class="avatar avatar--md avatar--admin" aria-hidden="true">RC</div>
-            <div>
-                <% if user_signed_in? %>
-                    <span class="sidebar__user-name"><%= current_user.name_user %></span>
-                    <span class="sidebar__user-role">Administrador</span>
-                <% else %>
-                    <%= link_to "Fazer Login", new_user_session_path, class: "btn-primary" %>
-                <% end %>
-            </div>
-        </footer>
-    </aside>
+    <%= render "partials/header" %>
 
     <main class="main">
         
         <!-- Cabeçalho -->
         <header class="page-header">
-            <div>
                 <h1 class="page-header__title">Editar Aluno</h1>
-            </div>
             <div class="page-header__actions">
                 <%= link_to student_path(@student), class:"btn-ghost" do %>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -88,7 +28,6 @@
             <%= form_with(model: @student) do |form| %>
                 <div class="form-card">
                     
-                    <!-- SEÇÃO 1: Dados Pessoais -->
                     <div class="form-section">
                         <div class="form-section__header">
                             <div class="form-section__icon">
@@ -129,8 +68,7 @@
                             </div>
                         </div>
 
-                        <!-- Endereço usando o grid de 3 colunas nativo do CSS -->
-                        <div class="form-grid form-grid--3" style="margin-top: 20px;">
+                        <div class="form-grid form-grid--3 margin-top_20">
                             <!-- Bairro -->
                             <div class="form-group">
                                 <label class="form-label" for="neighborhood">Bairro</label>
@@ -159,8 +97,7 @@
                             </div>
                         </div>
 
-                        <!-- Data nascimento -->
-                        <div class="form-grid" style="margin-top: 20px;">
+                        <div class="form-grid margin-top_20">
                             <!-- Data de nascimento -->
                             <div class="form-group">
                                 <label class="form-label" for="birth_date">Data de nascimento</label>
@@ -180,10 +117,6 @@
                             </div>
                         </div>
                     </div>
-
-                 
-            </div>
-                    
                     <!-- Footer do formulário para as ações -->
                     <div class="form-actions">
                         <%= link_to "Cancelar", students_path, class:"btn-ghost" %>
@@ -192,11 +125,9 @@
                             Salvar Aluno
                         </button>
                     </div>
-                    
                 </div>
             <% end %>
         </div>
     </main>
-
 </body>
 </html>

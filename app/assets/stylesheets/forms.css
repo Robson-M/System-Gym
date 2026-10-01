@@ -75,6 +75,7 @@ FORM CARD
     display: grid;
     gap: 24px;
     align-items: start;
+    padding-top: 10px;
 }
 
 .form-card {
