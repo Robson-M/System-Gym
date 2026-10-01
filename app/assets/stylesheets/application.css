@@ -792,7 +792,7 @@ CABEÇALHO DA PÁGINA
     font-size: 13px;
     color: var(--color-muted);
 }
-page-hea
+
 .page-header__actions {
     display: flex;
     align-items: center;
@@ -1059,8 +1059,10 @@ CARD DE PERFIL
 }
 
 /* ============================================================
-GRID DE MÉTRICAS
+PAGE PAYMENTS
 ============================================================ */
+
+/* grid de metricas */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1142,6 +1144,36 @@ GRID DE MÉTRICAS
     font-weight: normal;
 }
 
+.icon_payments{
+    display: inline;
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Erro na pagina de pagamento */
+
+.error-payment {
+    text-align:center; 
+    padding: 48px 20px; 
+    color: var(--color-muted);
+}
+
+.icon-payment-error {
+    display:block;
+    margin:0 auto 12px;
+    width:32px;
+    height:32px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.5;
+    opacity:.4;
+}
+
 /* ============================================================
 RESPONSIVO
 ============================================================ */
@@ -1177,24 +1209,7 @@ Avisos de Erros
     margin-bottom: 16px;
 }
 
-/* Erro na pagina de pagamento */
 
-.error-payment {
-    text-align:center; 
-    padding: 48px 20px; 
-    color: var(--color-muted);
-}
-
-.icon-payment-error {
-    display:block;
-    margin:0 auto 12px;
-    width:32px;
-    height:32px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:1.5;
-    opacity:.4;
-}
 
 .margin-top_20 {
     margin-top: 20px;
