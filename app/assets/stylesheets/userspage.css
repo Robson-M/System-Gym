@@ -33,12 +33,6 @@
     gap: 10px;
 }
 
-.user-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
 .btn-exit {
     color: var(--color-danger); 
     border-color: rgba(229,62,62,0.3);
