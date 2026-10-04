@@ -70,6 +70,10 @@
     color: var(--color-text);
 }
 
+.plan-preview__status {
+    color: #00a389;
+}
+
 .plan-preview__empty {
     padding: 24px 20px;
     text-align: center;
@@ -90,8 +94,42 @@
 /* Botões */
 
 .btn-inspect {
+    display: flex; 
+    gap: 8px; 
+    margin-top: 16px; 
+    padding-top: 16px; 
+    border-top: 1px solid var(--color-border);
+}
+
+.btn-inspect__link {
     flex: 1; 
     justify-content: center; 
     padding: 8px; 
     font-size: 13px;
+}
+
+.btn-inspect__icon {
+    display: inline;
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/* ============================================================
+AVISO DE ERRO
+============================================================ */
+
+.error_alert {
+    margin-bottom: 24px; 
+    padding: 16px 24px;
+}
+
+.error_message {
+    font-size: 13px;
+     color: var(--color-danger); 
+     margin-bottom: 4px;
 }
