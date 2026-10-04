@@ -3,84 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurações | NextFit Admin</title>
+  <title>Configurações</title>
   <%= stylesheet_link_tag "application" %>
   <%= stylesheet_link_tag "setting" %>
 </head>
 <body>
-
-  <!-- ═══ SIDEBAR ═══ -->
-  <aside class="sidebar">
-    <div class="sidebar__body">
-      <div class="sidebar__brand">
-        <div class="sidebar__logo" aria-hidden="true">N</div>
-        <span class="sidebar__name">NextFit Admin</span>
-      </div>
-
-      <nav aria-label="Menu principal">
-        <ul class="sidebar__nav">
-            <li class="nav-item">
-                <%= link_to students_path, class:"nav-item__link" do %>
-                    <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Alunos
-                <% end %>
-            </li>
-            <li class="nav-item">
-                <%= link_to plans_path, class:"nav-item__link" do %>
-                    <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    Planos
-                <% end %>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-item__link">
-                    <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    Financeiro
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-item__link">
-                    <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Relatórios
-                </a>
-            </li>
-            <li class="nav-item">
-                <%= link_to settings_path, class:"nav-item__link" do %>
-                    <svg class="nav-item__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                    Configurações
-                <% end %>
-            </li>
-        </ul>
-      </nav>
-    </div>
-
-    <footer class="sidebar__footer">
-      <div class="avatar avatar--md avatar--admin" aria-hidden="true">RM</div>
-      <div>
-        <% if user_signed_in? %>
-            <span class="sidebar__user-name"><%= current_user.name_user %></span>
-            <span class="sidebar__user-role">Administrador</span>
-        <% else %>
-            <%= link_to "Fazer Login", new_user_session_path, class: "btn-primary" %>
-        <% end %>
-      </div>
-    </footer>
-  </aside>
-
-  <!-- ═══ MAIN ═══ -->
+  <%= render "partials/header" %>
   <main class="main">
 
     <!-- CABEÇALHO -->
     <header class="page-header">
       <div>
         <h1 class="page-header__title">Configurações</h1>
-        <p class="page-header__date">Gerencie o sistema e personalize a academia</p>
       </div>
     </header>
 
-    <!-- ── NAVEGAÇÃO RÁPIDA ── -->
     <p class="settings-label">Gerenciamento do sistema</p>
     <div class="settings-nav-grid">
-
       <%= link_to users_path, class:"settings-nav-card" do %>
         <div class="settings-nav-card__icon">
           <svg vieBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -150,7 +89,6 @@
 
     <!-- ── PERSONALIZAÇÃO ── -->
     <p class="settings-label">Personalização da academia</p>
-
     <div class="settings-card">
       <div class="settings-card__header">
         <div class="settings-card__header-icon">
@@ -163,53 +101,53 @@
       </div>
       
       <%= form_with(model: @gym) do |form| %>
-      <div class="settings-card__body">
-        <div class="logo-upload">
-          <div class="logo-preview" aria-hidden="true">N</div>
-          <div class="logo-upload__info">
-            <div class="logo-upload__title">Logo da academia</div>
-            <div class="logo-upload__hint">PNG ou SVG · Tamanho máximo 2MB · Recomendado 256×256px</div>
-            <div class="logo-upload__actions">
-              <button class="btn-ghost" type="button" style="padding: 8px 14px; font-size: 13px;">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                Enviar imagem
-              </button>
-              <button class="btn-ghost" type="button" style="padding: 8px 14px; font-size: 13px; color: var(--color-danger); border-color: rgba(229,62,62,0.3);">
-                Remover
-              </button>
+        <div class="settings-card__body">
+          <div class="logo-upload">
+            <div class="logo-preview" aria-hidden="true">N</div>
+            <div class="logo-upload__info">
+              <div class="logo-upload__title">Logo da academia</div>
+              <div class="logo-upload__hint">PNG ou SVG · Tamanho máximo 2MB · Recomendado 256×256px</div>
+              <div class="logo-upload__actions">
+                <button class="btn-ghost btn-upload" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Enviar imagem
+                </button>
+                <button class="btn-ghost btn-remove" type="button">
+                  Remover
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Campos de texto -->
+          <div class="settings-fields">
+            <div class="settings-field">
+              <%= form.label "Nome da academia", class:"settings-field__label" %>
+              <%= form.text_field :gym_name, class:"settings-field__input" %>
+            </div>
+            <div class="settings-field">
+              <%= form.label "Telefone de contato", class:"settings-field__label" %>
+              <%= form.text_field :gym_phone, class:"settings-field__input" %>
+            </div>
+            <div class="settings-field">
+              <%= form.label "E-mail da academia", class:"settings-field__label" %>
+              <%= form.text_field :gym_email, class:"settings-field__input" %>
+            </div>
+            <div class="settings-field">
+              <%= form.label "Endereço", class:"settings-field__label" %>
+              <%= form.text_field :gym_address, class:"settings-field__input" %>
             </div>
           </div>
         </div>
 
-        <!-- Campos de texto -->
-        <div class="settings-fields">
-          <div class="settings-field">
-            <%= form.label "Nome da academia", class:"settings-field__label" %>
-            <%= form.text_field :gym_name, class:"settings-field__input" %>
-          </div>
-          <div class="settings-field">
-            <%= form.label "Telefone de contato", class:"settings-field__label" %>
-            <%= form.text_field :gym_phone, class:"settings-field__input" %>
-          </div>
-          <div class="settings-field">
-            <%= form.label "E-mail da academia", class:"settings-field__label" %>
-            <%= form.text_field :gym_email, class:"settings-field__input" %>
-          </div>
-          <div class="settings-field">
-            <%= form.label "Endereço", class:"settings-field__label" %>
-            <%= form.text_field :gym_address, class:"settings-field__input" %>
-          </div>
+        <div class="settings-card__footer">
+          <button type="submit" class="btn-primary settings-button_sabe" %>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Salvar identidade
+          </button>
         </div>
-      </div>
-
-      <div class="settings-card__footer">
-        <button type="submit" class="btn-primary settings-button_sabe" %>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          Salvar identidade
-        </button>
-      </div>
+      <% end %>
     </div>
-  <% end %>
   
     <!-- Card: cores do sistema -->
     <div class="settings-card">
@@ -225,7 +163,6 @@
 
       <div class="settings-card__body">
         <div class="color-grid">
-
           <div class="color-field">
             <label class="color-field__label">Cor primária</label>
             <div class="color-field__picker">
@@ -252,7 +189,6 @@
             </div>
             <span class="settings-field__hint">Hover, foco e badges</span>
           </div>
-
         </div>
       </div>
 
@@ -264,8 +200,6 @@
         </button>
       </div>
     </div>
-
   </main>
-
 </body>
 </html>
