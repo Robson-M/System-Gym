@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "~> 3.4"
 
-gem "rails", "~> 8.0"
+gem "rails", "~> 8.1"
 gem "pg", "~> 1.1"          # adapter PostgreSQL
 gem "puma", ">= 5.0"        # servidor web
 gem "bootsnap", require: false  # inicialização mais rápida
