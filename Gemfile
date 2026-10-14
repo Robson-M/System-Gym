@@ -29,7 +29,6 @@ group :development, :test do
   gem "debug"               # debugger
   gem "rspec-rails"         # testes
   gem "factory_bot_rails"   # factories para testes
-  gem "faker"               # dados falsos para seeds/testes
   gem "dotenv-rails"        # carrega .env no Rails
 end
 
@@ -45,3 +44,5 @@ group :test do
   gem "selenium-webdriver"
   gem "database_cleaner-active_record"
 end
+
+gem "tailwindcss-rails", "~> 4.6"
