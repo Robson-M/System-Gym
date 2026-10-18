@@ -19,6 +19,10 @@ class Payment < ApplicationRecord
         (last_payment.due_date - Date.today).to_i
     end
 
+    def name_plan_used
+        last_payment&.name_plan_payment
+    end
+
     private
     
     def calculate

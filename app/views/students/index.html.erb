@@ -61,7 +61,7 @@
                             <%= avatar_initials(student.name_student) %>
                           </div>
                           <div class="student-cell">
-                            <div>    
+                            <div>
                               <span class="student-cell__name"><%= student.name_student %></span>
                             </div>
                           </div>
@@ -70,7 +70,7 @@
                       <td><%= student.cpf_student.to_s.gsub(/\D/, '').sub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4') %></td>
                       <td><%= student.created_at.strftime("%d/%m/%Y") %></td>
                       <td><%= student.phone.to_s.gsub(/\D/, '').sub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3') %></td>
-                      <td><%= student.payments.first&.name_plan_payment %></td>
+                      <td><%= student.payments.first&.name_plan_used %></td>
                       <td><span class="badge badge--active"><%= student.payments.first&.due_date_active %></span></td>
                       <td>
                         <div class="row-actions">
@@ -92,6 +92,5 @@
       <% end %>                    
       </turbo-frame>
   </main>
-
 </body>
 </html>
