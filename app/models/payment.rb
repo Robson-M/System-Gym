@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+    include PlanStatus
     belongs_to :student
     belongs_to :plan
 
@@ -20,6 +21,7 @@ class Payment < ApplicationRecord
     end
 
     def name_plan_used
+        return "----" if last_payment&.name_plan_payment == nil
         last_payment&.name_plan_payment
     end
 

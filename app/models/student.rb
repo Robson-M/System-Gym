@@ -1,4 +1,5 @@
 class Student < ApplicationRecord
+    include PlanStatus
     belongs_to :plan
     has_many :payments, dependent: :destroy
 
