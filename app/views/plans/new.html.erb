@@ -1,93 +1,86 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adicionar Plano</title>
-  <%= stylesheet_link_tag "application" %>
-  <%= stylesheet_link_tag "forms" %>
-</head>
-<body>
-  <%= render "partials/header" %>
-  <main class="main">
+<% content_for :title, "Adicionar Plano" %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "forms", "data-turbo-track": "dynamic" %>
+  <%= stylesheet_link_tag "planspage", "data-turbo-track": "dynamic" %>
+<% end %>
 
-    <!-- CABEÇALHO -->
-    <header class="page-header">
-      <div>
-        <h1 class="page-header__title">Novo Plano</h1>
-      </div>
+<main class="main">
 
-      <%= link_to plans_path, class: "btn-ghost" do %>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Voltar
+  <!-- CABEÇALHO -->
+  <header class="page-header">
+    <div>
+      <h1 class="page-header__title">Novo Plano</h1>
+    </div>
+
+    <%= link_to plans_path, class: "btn-ghost" do %>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    <% end %>
+  </header>
+
+  <!-- ERROS DE VALIDAÇÃO -->
+  <% if @plan.errors.any? %>
+    <div class="form-card error_alert">
+      <% @plan.errors.full_messages.each do |msg| %>
+        <p class="error_message">• <%= msg %></p>
       <% end %>
-    </header>
+    </div>
+  <% end %>
 
-    <!-- ERROS DE VALIDAÇÃO -->
-    <% if @plan.errors.any? %>
-      <div class="form-card error_alert">
-        <% @plan.errors.full_messages.each do |msg| %>
-          <p class="error_message">• <%= msg %></p>
-        <% end %>
-      </div>
-    <% end %>
-
-    <!-- FORMULÁRIO -->
-    <%= form_with model: @plan, class: "form-layout" do |form| %>
-      <div class="form-card">
-        <div class="form-section">
-          <div class="form-section__header">
-            <div class="form-section__icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            </div>
-            <div>
-              <h2 class="form-section__title">Informações do Plano</h2>
-            </div>
+  <!-- FORMULÁRIO -->
+  <%= form_with model: @plan, class: "form-layout" do |form| %>
+    <div class="form-card">
+      <div class="form-section">
+        <div class="form-section__header">
+          <div class="form-section__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           </div>
-
-          <!-- Nome do plano -->
-          <div class="form-grid">
-            <div class="form-group form-col-full">
-              <label class="form-label">Nome do plano <sup>*</sup></label>
-              <div class="form-input-wrapper">
-                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                <%= form.text_field :name_plan, class: "form-input", placeholder: "Ex.: Plano Mensal" %>
-              </div>
-            </div>
-
-            <!-- Preço -->
-            <div class="form-group">
-              <label class="form-label">Valor (R$) <sup>*</sup></label>
-              <div class="form-input-wrapper">
-                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <%= form.number_field :price, class: "form-input", placeholder: "Ex.: 120.00" %>
-              </div>
-              <span class="form-hint">Valor mensal cobrado ao aluno.</span>
-            </div>
-
-            <!-- Duração -->
-            <div class="form-group">
-              <label class="form-label">Duração (dias) <sup>*</sup></label>
-              <div class="form-input-wrapper">
-                <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <%= form.number_field :duration_days, class: "form-input", placeholder: "Ex.: 30" %>
-              </div>
-              <span class="form-hint">Duração do plano em dias.</span>
-            </div>
+          <div>
+            <h2 class="form-section__title">Informações do Plano</h2>
           </div>
         </div>
 
-        <!-- AÇÕES -->
-        <div class="form-actions">
-          <div class="btn-conteiner">
-            <%= link_to plans_path, class: "btn-ghost btn-actions" do %>
-              Cancelar
-            <% end %>
-            <%= form.submit "Salvar alterações", class: "btn-primary btn-actions" %>
+        <!-- Nome do plano -->
+        <div class="form-grid">
+          <div class="form-group form-col-full">
+            <label class="form-label">Nome do plano <sup>*</sup></label>
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              <%= form.text_field :name_plan, class: "form-input", placeholder: "Ex.: Plano Mensal" %>
+            </div>
+          </div>
+
+          <!-- Preço -->
+          <div class="form-group">
+            <label class="form-label">Valor (R$) <sup>*</sup></label>
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <%= form.number_field :price, class: "form-input", placeholder: "Ex.: 120.00" %>
+            </div>
+            <span class="form-hint">Valor mensal cobrado ao aluno.</span>
+          </div>
+
+          <!-- Duração -->
+          <div class="form-group">
+            <label class="form-label">Duração (dias) <sup>*</sup></label>
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <%= form.number_field :duration_days, class: "form-input", placeholder: "Ex.: 30" %>
+            </div>
+            <span class="form-hint">Duração do plano em dias.</span>
           </div>
         </div>
       </div>
-    <% end %>
-  </main>
-</body>
-</html>
+
+      <!-- AÇÕES -->
+      <div class="form-actions">
+        <div class="btn-conteiner">
+          <%= link_to plans_path, class: "btn-ghost btn-actions" do %>
+            Cancelar
+          <% end %>
+          <%= form.submit "Salvar alterações", class: "btn-primary btn-actions" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</main>
