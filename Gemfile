@@ -14,6 +14,7 @@ gem "turbo-rails"           # Hotwire Turbo
 gem "stimulus-rails"        # Hotwire Stimulus
 gem 'rails-i18n'
 gem 'devise-i18n'
+gem "importmap-rails"
 
 # Auth
 gem "devise"                # autenticação

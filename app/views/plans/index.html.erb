@@ -1,68 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Planos</title>
-  <%= stylesheet_link_tag "application" %>
-  <%= stylesheet_link_tag "planspage" %>
-</head>
-<body>
-    <%= render "partials/header" %>
-    <main class="main">
-        
-        <!-- Cabeçalho -->
-        <header class="page-header">
-            <div>
-                <h1 class="page-header__title">Planos da Academia</h1>
-            </div>
-            <div class="page-header__actions">
-                <%= link_to new_plan_path, class:"btn-primary" do %>
-                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    Novo Plano
-                <% end %>
-            </div>
-        </header>
+<% content_for :title, "Planos" %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "planspage", "data-turbo-track": "dynamic" %>
+<% end %>
 
-        <div class="plan-grid">
-
-            <!-- CARD DE PLANOS -->
-            <% @plans.each do |plan| %>
-                <div class="plan-preview">
-                    <div class="plan-preview__header">
-                        <div class="plan-preview__header-icon">
-                            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                        </div>
-                        <div>
-                            <div class="plan-preview__header-title"><%= plan.name_plan %></div>
-                            <div class="plan-preview__header-sub">Cobrança recorrente a cada <strong><%= plan.duration_days %></strong> dias</div>
-                        </div>
-                    </div>
-                    <div class="plan-preview__body">
-                        <div class="plan-preview__row">
-                            <span class="plan-preview__row-label">Valor</span>
-                            <span class="plan-preview__row-value">R$ <%= plan.price %></span>
-                        </div>
-                        <div class="plan-preview__row">
-                            <span class="plan-preview__row-label">Duração</span>
-                            <span class="plan-preview__row-value"><%= plan.formatted_duration %></span>
-                        </div>
-                        <div class="plan-preview__row">
-                            <span class="plan-preview__row-label">Status</span>
-                            <span class="plan-preview__row-value plan-preview__status""><%= plan.formatted_active %></span>
-                        </div>
-                        
-                        <!-- Ações -->
-                        <div class="btn-inspect">
-                            <%= link_to edit_plan_path(plan), class:"btn-ghost btn-inspect__link" do %>
-                                <svg class="btn-inspect__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>    
-                                Inspecionar
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
+<main class="main">
+    
+    <!-- Cabeçalho -->
+    <header class="page-header">
+        <div>
+            <h1 class="page-header__title">Planos da Academia</h1>
+        </div>
+        <div class="page-header__actions">
+            <%= link_to new_plan_path, class:"btn-primary" do %>
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Novo Plano
             <% end %>
         </div>
-    </main>
-</body>
-</html>
+    </header>
+
+    <div class="plan-grid">
+
+        <!-- CARD DE PLANOS -->
+        <% @plans.each do |plan| %>
+            <div class="plan-preview">
+                <div class="plan-preview__header">
+                    <div class="plan-preview__header-icon">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    </div>
+                    <div>
+                        <div class="plan-preview__header-title"><%= plan.name_plan %></div>
+                        <div class="plan-preview__header-sub">Cobrança recorrente a cada <strong><%= plan.duration_days %></strong> dias</div>
+                    </div>
+                </div>
+                <div class="plan-preview__body">
+                    <div class="plan-preview__row">
+                        <span class="plan-preview__row-label">Valor</span>
+                        <span class="plan-preview__row-value">R$ <%= plan.price %></span>
+                    </div>
+                    <div class="plan-preview__row">
+                        <span class="plan-preview__row-label">Duração</span>
+                        <span class="plan-preview__row-value"><%= plan.formatted_duration %></span>
+                    </div>
+                    <div class="plan-preview__row">
+                        <span class="plan-preview__row-label">Status</span>
+                        <span class="plan-preview__row-value plan-preview__status""><%= plan.formatted_active %></span>
+                    </div>
+                    
+                    <!-- Ações -->
+                    <div class="btn-inspect">
+                        <%= link_to edit_plan_path(plan), class:"btn-ghost btn-inspect__link" do %>
+                            <svg class="btn-inspect__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>    
+                            Inspecionar
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</main>

@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - NextFit Admin</title>
-    <%= stylesheet_link_tag "application" %>
-</head>
-<body>
-  <%= render "partials/header" %>
-  <main class="main">
+<% content_for :title, "Painel Administrativo - NextFit Admin" %>
 
-    <!-- BUSCA -->
+<main class="main">
+
+  <!-- BUSCA -->
     <%= form_with url: students_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, local: true, class:"search-bar" do |form| %>
       <svg class="search-bar__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       
@@ -34,7 +26,7 @@
     </section>
 
     <!-- RESULTADOS -->
-    <turbo-frame id="search_results">
+    <turbo-frame id="search_results" target="_top">
     <% if @students&.any? %>
       <section class="search-results" aria-label="Resultados da busca">
         <h2 class="section-label">Resultados da pesquisa para <%= params[:q]&.upcase %> (<%= @students.count %> ENCONTRADOS)</h2>
@@ -91,6 +83,4 @@
       </section>
     <% end %>                    
     </turbo-frame>
-  </main>
-</body>
-</html>
+</main>

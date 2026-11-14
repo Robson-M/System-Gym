@@ -1,4 +1,4 @@
-git restore --stagedrequire 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe "Users::Registrations", type: :request do
   describe "GET /index" do
