@@ -1,0 +1,81 @@
+/* ============================================================
+PAGE CATRACA
+============================================================ */
+.turnstile-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-top: 30px;
+}
+
+.turnstile-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.turnstile-card__title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.turnstile-card__info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.turnstile-card__commands {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.turnstile-card__danger {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn-danger-soft {
+    color: var(--color-danger);
+    background-color: var(--color-danger-bg);
+    border-color: rgba(229, 62, 62, 0.3);
+}
+
+.btn-danger-soft:hover {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    background-color: var(--color-danger-bg);
+}
+
+.turnstile-card button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Badge com ícone */
+.badge--success { background-color: var(--color-active-bg); color: var(--color-active); }
+
+.badge svg {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 3;
+}
+
+.turnstile-result { text-align: right; }
+
+@media (max-width: 768px) {
+    .turnstile-card__info { grid-template-columns: 1fr; }
+}

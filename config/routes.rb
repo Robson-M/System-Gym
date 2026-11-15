@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: [:index, :destroy]
-  resources :settings, only: [:index] 
+  resources :settings, only: [:index]
+  resources :turnstiles, only: [:index]
   resources :plans
   resources :gyms, only: [:update]
 

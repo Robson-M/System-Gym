@@ -1,0 +1,188 @@
+<% content_for :title, "Catraca" %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "turnstile", "data-turbo-track": "dynamic" %>
+<% end %>
+
+<%# Dados fictícios: página apenas demonstrativa, sem integração com a catraca. %>
+<% accesses = [
+  { time: "18:42", name: "Marcos Silva Costa",       plan: "Trimestral", direction: "Entrada", method: "Biometria", allowed: true },
+  { time: "18:39", name: "Camila Freitas Gomes",     plan: "Vencidos",   direction: "Entrada", method: "QR code",   allowed: false, reason: "Plano vencido" },
+  { time: "18:35", name: "Ana Ferreira Barbosa",     plan: "Mensal",     direction: "Saída",   method: "Cartão",    allowed: true },
+  { time: "18:31", name: "Patrícia Correia Machado", plan: "Anual",      direction: "Entrada", method: "Biometria", allowed: true },
+  { time: "18:27", name: "Fernanda Cardoso Almeida", plan: "Diaria",     direction: "Entrada", method: "QR code",   allowed: false, reason: "Fora do horário" },
+  { time: "18:22", name: "Lucas Ribeiro Santos",     plan: "Trimestral", direction: "Saída",   method: "Biometria", allowed: true },
+  { time: "18:18", name: "Gabriel Dias Rocha",       plan: "Vencidos",   direction: "Entrada", method: "Cartão",    allowed: false, reason: "Plano vencido" },
+  { time: "18:14", name: "Juliana Rocha Silva",      plan: "Mensal",     direction: "Entrada", method: "QR code",   allowed: true },
+  { time: "18:09", name: "Bruno Nogueira Souza",     plan: "Anual",      direction: "Saída",   method: "Biometria", allowed: true },
+  { time: "18:05", name: "Pedro Lima Cavalcante",    plan: "Mensal",     direction: "Entrada", method: "Cartão",    allowed: true }
+] %>
+
+<main class="main">
+
+  <!-- CABEÇALHO -->
+  <header class="page-header">
+    <div>
+      <h1 class="page-header__title">Catraca</h1>
+      <p class="page-header__date">
+        <svg class="icon_payments" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Controle de acesso (demonstração)
+      </p>
+    </div>
+
+    <div class="page-header__actions">
+      <%= link_to root_path, class: "btn-ghost" do %>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Voltar
+      <% end %>
+    </div>
+  </header>
+
+  <!-- STATUS E COMANDOS -->
+  <section class="turnstile-card" aria-labelledby="turnstile-name">
+    <div class="turnstile-card__header">
+      <h2 id="turnstile-name" class="turnstile-card__title">Catraca 01 · Entrada principal</h2>
+      <span class="badge badge--success">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Online
+      </span>
+    </div>
+
+    <dl class="turnstile-card__info">
+      <div>
+        <dt class="info-item__label">Sentido</dt>
+        <dd class="info-item__value">Entrada e saída</dd>
+      </div>
+      <div>
+        <dt class="info-item__label">Modo</dt>
+        <dd class="info-item__value">Normal</dd>
+      </div>
+      <div>
+        <dt class="info-item__label">Última comunicação</dt>
+        <dd class="info-item__value">Hoje, às 18:42</dd>
+      </div>
+    </dl>
+
+    <div class="turnstile-card__commands" role="group" aria-label="Comandos da catraca">
+      <button type="button" class="btn-primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+        Liberar passagem
+      </button>
+
+      <div class="turnstile-card__danger">
+        <button type="button" class="btn-ghost btn-danger-soft">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          Bloquear catraca
+        </button>
+        <button type="button" class="btn-ghost btn-danger-soft">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Modo livre
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-card__header">
+        <span class="metric-card__label">Acessos hoje</span>
+        <span class="metric-card__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </span>
+      </div>
+      <div class="metric-card__value">247</div>
+      <div class="metric-card__trend trend--up">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <span class="trend__context">12% a mais que ontem</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__header">
+        <span class="metric-card__label">Acessos negados</span>
+        <span class="metric-card__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </span>
+      </div>
+      <div class="metric-card__value">9</div>
+      <div class="metric-card__trend trend--warn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span class="trend__context">maioria por plano vencido</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__header">
+        <span class="metric-card__label">Na academia agora</span>
+        <span class="metric-card__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+      </div>
+      <div class="metric-card__value">38</div>
+      <div class="metric-card__trend">
+        <span class="trend__context">pessoas</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__header">
+        <span class="metric-card__label">Horário de pico</span>
+        <span class="metric-card__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </span>
+      </div>
+      <div class="metric-card__value">18h – 19h</div>
+      <div class="metric-card__trend">
+        <span class="trend__context">média dos últimos 7 dias</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÚLTIMOS ACESSOS -->
+  <section class="search-results" aria-labelledby="last-accesses">
+    <h2 id="last-accesses" class="section-label">Últimos acessos</h2>
+    <div class="results-card">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th scope="col">Horário</th>
+            <th scope="col">Aluno</th>
+            <th scope="col">Plano</th>
+            <th scope="col">Sentido</th>
+            <th scope="col">Método</th>
+            <th scope="col">Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% accesses.each do |access| %>
+            <tr>
+              <td><time><%= access[:time] %></time></td>
+              <td>
+                <div class="user-cell">
+                  <div class="avatar avatar--sm avatar--admin" aria-hidden="true"><%= avatar_initials(access[:name]) %></div>
+                  <%= access[:name] %>
+                </div>
+              </td>
+              <td><%= access[:plan] %></td>
+              <td><%= access[:direction] %></td>
+              <td><%= access[:method] %></td>
+              <td class="turnstile-result">
+                <% if access[:allowed] %>
+                  <span class="badge badge--success">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    Liberado
+                  </span>
+                <% else %>
+                  <span class="badge badge--danger">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    Negado · <%= access[:reason] %>
+                  </span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
