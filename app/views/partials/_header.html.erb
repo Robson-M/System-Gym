@@ -378,10 +378,10 @@
 </nav>
 
     <div class="top-header__right">
-      <button class="top-header__help-btn btn-header__right">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-        Central do Aluno
-      </button>
+      <%= link_to statistics_path, class: "top-header__help-btn btn-header__right" do %>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        Estatísticas
+      <% end %>
 
       <%= link_to turnstiles_path, class: "top-header__help-btn btn-header__right" do %>
         <span class="top-header__dot" aria-hidden="true"></span>
