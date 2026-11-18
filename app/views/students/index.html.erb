@@ -1,6 +1,6 @@
 <% content_for :title, "Painel Administrativo - NextFit Admin" %>
 
-<main class="main">
+<main class="main" data-controller="filter">
 
   <!-- BUSCA -->
     <%= form_with url: students_path, method: :get, data: { controller: "search", turbo_frame: "search_results" }, local: true, class:"search-bar" do |form| %>
@@ -18,10 +18,14 @@
     <section class="search-hero" role="group" aria-label="Filtros rápidos">
       <div class="search-filters">
         <span class="search-filters__label">Filtros rápidos:</span>
-        <button class="filter-btn">Todos</button>
-        <button class="filter-btn filter-btn--active" aria-pressed="true">Ativos</button>
-        <button class="filter-btn">Inativos</button>
-        <button class="filter-btn">Vencendo</button>
+        <% { "todos" => "Todos", "ativos" => "Ativos", "inativos" => "Inativos", "vencendo" => "Vencendo" }.each do |key, label| %>
+          <button type="button"
+                  class="filter-btn <%= "filter-btn--active" if key == "todos" %>"
+                  aria-pressed="<%= key == "todos" %>"
+                  data-filter-target="button"
+                  data-filter-filter-param="<%= key %>"
+                  data-action="filter#select"><%= label %></button>
+        <% end %>
       </div>
     </section>
 
@@ -29,7 +33,7 @@
     <turbo-frame id="search_results" target="_top">
     <% if @students&.any? %>
       <section class="search-results" aria-label="Resultados da busca">
-        <h2 class="section-label">Resultados da pesquisa para <%= params[:q]&.upcase %> (<%= @students.count %> ENCONTRADOS)</h2>
+        <h2 class="section-label">Resultados da pesquisa para <%= params[:q]&.upcase %> (<span data-filter-target="count"><%= @students.count %></span> ENCONTRADOS)</h2>
         <div class="results-grid">
           <div class="results-card">
             <table class="results-table">
@@ -46,7 +50,11 @@
               </thead>
               <tbody>
                 <% @students.each do |student| %>
-                  <tr class="is-selected" aria-selected="true">
+                  <% payment = student.payments.first %>
+                  <tr class="is-selected" aria-selected="true"
+                      data-filter-target="row"
+                      data-status="<%= payment&.due_date_active == "Ativo" ? "ativo" : "inativo" %>"
+                      data-days="<%= payment&.days_until_expiration.to_i %>">
                     <td>
                       <div class="user-cell">
                         <div class="avatar avatar--sm avatar--admin" aria-hidden="true">
@@ -78,7 +86,8 @@
                 <% end %>
               </tbody>
             </table>
-          </div>                
+            <p class="section-label" data-filter-target="empty" hidden>Nenhum aluno neste filtro.</p>
+          </div>             
         </div>
       </section>
     <% end %>                    
