@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :user do
-    cpf { Faker::IdNumber.brazilian_citizen_number }
-    password_digest { 12345678 }
-    role { "admin" }
+    cpf { "12345678910" }
+    password { 12345678 }
+    password_confirmation { 12345678 }
+    name_user { "Robson Mesquita Dos Santos" }
+    phone_user { "00000000000" }
   end
 end
