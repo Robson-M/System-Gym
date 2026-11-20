@@ -31,6 +31,8 @@ group :development, :test do
   gem "rspec-rails"         # testes
   gem "factory_bot_rails"   # factories para testes
   gem "dotenv-rails"        # carrega .env no Rails
+  gem "brakeman", require: false
+  gem "bundler-audit", require: false
 end
 
 group :development do
