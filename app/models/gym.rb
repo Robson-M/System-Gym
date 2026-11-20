@@ -1,3 +1,2 @@
 class Gym < ApplicationRecord
-    
 end

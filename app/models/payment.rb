@@ -26,7 +26,7 @@ class Payment < ApplicationRecord
     end
 
     private
-    
+
     def calculate
         plan = Plan.find(plan_id)
         self.name_plan_payment = plan.name_plan

@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-    
-    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [:cpf]
+    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, authentication_keys: [ :cpf ]
 
     validates :cpf, presence: true
     validates :cpf, length: { is: 11 }, uniqueness: true, numericality: true, allow_blank: true
@@ -11,7 +10,7 @@ class User < ApplicationRecord
     validates :phone_user, numericality: true, allow_blank: true
 
     def user_photo
-        name_user.split.map(&:first).first(2).join.upcase rescue "AD" 
+        name_user.split.map(&:first).first(2).join.upcase rescue "AD"
     end
 
     def email_required?

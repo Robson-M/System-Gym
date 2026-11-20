@@ -7,10 +7,10 @@ HOJE = Date.current
 
 puts "Criando Academia..."
 
-gym = Gym.find_or_create_by!(gym_email:"Gym@gmail.com") do |g|
+gym = Gym.find_or_create_by!(gym_email: "Gym@gmail.com") do |g|
   g.gym_name = "Gym"
   g.gym_address = "Rua Mucugê - N°2006 - Centor"
-  g.gym_phone = "77-7777-7777" 
+  g.gym_phone = "77-7777-7777"
 end
 
 puts "Criando users..."
@@ -100,7 +100,7 @@ students_data = [
   { name_student: "Sandra Freitas Pereira", cpf_student: "90044224800", email_student: "sandra.freitas.pereira@email.com", phone: "77991293508", birth_date: "2008-03-05", street: "Avenida Getúlio Vargas", house_number: 719, neighborhood: "Novo Horizonte", plan: :vencidos, payments: 1 }
 ]
 
-METODOS = ["Pix", "Cartão de crédito", "Cartão de débito", "Dinheiro", "Boleto"].freeze
+METODOS = [ "Pix", "Cartão de crédito", "Cartão de débito", "Dinheiro", "Boleto" ].freeze
 
 students_data.each_with_index do |row, i|
   plan = plans[row[:plan]]
@@ -126,8 +126,8 @@ students_data.each_with_index do |row, i|
 
     Payment.create!(
       student_id:        student.id,
-      plan_id:           plan.id,                       
-      name_plan_payment: plan.name_plan,            
+      plan_id:           plan.id,
+      name_plan_payment: plan.name_plan,
       amount:            plan.price,
       due_date:          vencimento,
       paid_at:           pago ? vencimento - ((i + k) % 4).days : nil,

@@ -5,9 +5,9 @@ class Student < ApplicationRecord
 
     def status_student
         if status == true
-            return "Ativo"
+            "Ativo"
         else
-            return "Pendente"
+            "Pendente"
         end
     end
 
@@ -15,5 +15,4 @@ class Student < ApplicationRecord
     validates :phone, length: { is: 11 }
     validates :cpf_student, presence: true
     validates :cpf_student, length: { is: 11 }, uniqueness: true, allow_blank: true
-
 end

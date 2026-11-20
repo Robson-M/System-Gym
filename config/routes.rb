@@ -7,15 +7,14 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
 
-  resources :users, only: [:index, :destroy]
-  resources :settings, only: [:index]
-  resources :turnstiles, only: [:index]
-  resources :statistics, only: [:index]
+  resources :users, only: [ :index, :destroy ]
+  resources :settings, only: [ :index ]
+  resources :turnstiles, only: [ :index ]
+  resources :statistics, only: [ :index ]
   resources :plans
-  resources :gyms, only: [:update]
+  resources :gyms, only: [ :update ]
 
   resources :students do
     resources :payments, only: [ :index, :new, :create, :destroy ]
   end
-  
 end

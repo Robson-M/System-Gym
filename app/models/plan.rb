@@ -18,8 +18,7 @@ class Plan < ApplicationRecord
         if active
             "Ativo"
         else
-            "Inativo"        
+            "Inativo"
         end
     end
-
 end

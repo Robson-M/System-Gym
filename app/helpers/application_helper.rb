@@ -1,5 +1,4 @@
 module ApplicationHelper
-
     def avatar_initials(full_name)
         return "" if full_name.blank?
 
