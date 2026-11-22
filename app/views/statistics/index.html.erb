@@ -3,43 +3,19 @@
   <%= stylesheet_link_tag "statistics", "data-turbo-track": "dynamic" %>
 <% end %>
 
-<%# Dados fictícios: página apenas demonstrativa, sem consulta ao banco. %>
-<% revenue_by_month = [
-  { label: "Jun", value: "15,2 mil", percent: 82 },
-  { label: "Jul", value: "15,9 mil", percent: 87 },
-  { label: "Ago", value: "16,7 mil", percent: 91 },
-  { label: "Set", value: "17,1 mil", percent: 93 },
-  { label: "Out", value: "17,9 mil", percent: 97 },
-  { label: "Nov", value: "18,4 mil", percent: 100 }
-] %>
-<% payment_methods = [
-  { label: "Pix",      percent: 58, color: "primary" },
-  { label: "Crédito",  percent: 27, color: "accent" },
-  { label: "Débito",   percent: 10, color: "secondary" },
-  { label: "Dinheiro", percent: 5,  color: "inactive" }
-] %>
-<% enrollments = [
-  { label: "Jun", new: 18, canceled: 9 },
-  { label: "Jul", new: 20, canceled: 8 },
-  { label: "Ago", new: 22, canceled: 8 },
-  { label: "Set", new: 19, canceled: 6 },
-  { label: "Out", new: 21, canceled: 8 },
-  { label: "Nov", new: 24, canceled: 7 }
-] %>
-<% enrollments_max = 24 %>
-<% students_by_plan = [
-  { label: "Mensal",     count: 98, percent: 47, color: "primary" },
-  { label: "Trimestral", count: 41, percent: 20, color: "accent" },
-  { label: "Anual",      count: 32, percent: 15, color: "secondary" },
-  { label: "Diária",     count: 15, percent: 7,  color: "active" },
-  { label: "Vencidos",   count: 23, percent: 11, color: "danger" }
-] %>
-<% students_by_age = [
-  { label: "18 a 25", count: 52, percent: 25 },
-  { label: "26 a 35", count: 71, percent: 34 },
-  { label: "36 a 45", count: 48, percent: 23 },
-  { label: "46 ou +", count: 38, percent: 18 }
-] %>
+<% revenue_by_month = @stats.revenue_by_month %>
+<% revenue_max      = revenue_by_month.map { |m| m[:value] }.max %>
+<% growth           = @stats.revenue_growth %>
+<% payment_methods  = @stats.payment_methods %>
+<% enrollments      = @stats.enrollments_by_month %>
+<% enrollments_max  = enrollments.flat_map { |m| [m[:new], m[:lost]] }.max %>
+<% renewals         = @stats.renewals %>
+<% renewal_rate     = @stats.renewal_rate %>
+<% retention_diff   = renewal_rate - @stats.renewal_rate(@stats.today.prev_month) %>
+<% students_by_plan = @stats.students_by_plan %>
+<% students_by_age  = @stats.students_by_age %>
+<% age_max          = students_by_age.map { |a| a[:value] }.max %>
+<% previous_month   = l(@stats.today.prev_month, format: "%B") %>
 
 <main class="main">
 
@@ -49,7 +25,7 @@
       <h1 class="page-header__title">Estatísticas</h1>
       <p class="page-header__date">
         <svg class="icon_payments" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-        Resumo de novembro de 2026 (demonstração)
+        Resumo de <%= l(@stats.today, format: "%B de %Y") %>
       </p>
     </div>
 
@@ -70,10 +46,16 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </span>
       </div>
-      <div class="metric-card__value">R$ 18.420</div>
-      <div class="metric-card__trend trend--up">
+      <div class="metric-card__value"><%= money(@stats.revenue) %></div>
+      <div class="metric-card__trend <%= growth.to_f >= 0 ? "trend--up" : "trend--warn" %>">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span class="trend__context">3,1% acima de outubro</span>
+        <span class="trend__context">
+          <% if growth %>
+            <%= number_to_percentage(growth.abs, precision: 1) %> <%= growth >= 0 ? "acima" : "abaixo" %> de <%= previous_month %>
+          <% else %>
+            Sem receita em <%= previous_month %> para comparar
+          <% end %>
+        </span>
       </div>
     </div>
 
@@ -84,10 +66,10 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </span>
       </div>
-      <div class="metric-card__value">186</div>
+      <div class="metric-card__value"><%= @stats.active_students %></div>
       <div class="metric-card__trend trend--up">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span class="trend__context">+17 no mês · 209 cadastrados</span>
+        <span class="trend__context">+<%= @stats.new_students %> no mês · <%= @stats.total_students %> cadastrados</span>
       </div>
     </div>
 
@@ -98,10 +80,10 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </span>
       </div>
-      <div class="metric-card__value">R$ 2.300</div>
+      <div class="metric-card__value"><%= money(@stats.overdue_amount) %></div>
       <div class="metric-card__trend trend--warn">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span class="trend__context">23 mensalidades vencidas</span>
+        <span class="trend__context"><%= pluralize(@stats.overdue_students, "mensalidade vencida", plural: "mensalidades vencidas") %></span>
       </div>
     </div>
 
@@ -112,10 +94,12 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
         </span>
       </div>
-      <div class="metric-card__value">91%</div>
-      <div class="metric-card__trend trend--up">
+      <div class="metric-card__value"><%= renewal_rate %>%</div>
+      <div class="metric-card__trend <%= retention_diff >= 0 ? "trend--up" : "trend--warn" %>">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span class="trend__context">2 pontos acima de outubro</span>
+        <span class="trend__context">
+          <%= pluralize(retention_diff.abs, "ponto", plural: "pontos") %> <%= retention_diff >= 0 ? "acima" : "abaixo" %> de <%= previous_month %>
+        </span>
       </div>
     </div>
   </div>
@@ -128,16 +112,16 @@
       <article class="stat-card">
         <header class="stat-card__header">
           <h3 class="stat-card__title">Receita mensal</h3>
-          <p class="stat-card__subtitle">Últimos 6 meses, em R$ · ticket médio R$ 99,03 · previsão de dezembro R$ 18,9 mil</p>
+          <p class="stat-card__subtitle">Últimos <%= GymStatistics::MONTHS %> meses, em R$ · ticket médio <%= number_to_currency(@stats.average_ticket) %></p>
         </header>
         <ul class="stat-columns">
-          <% revenue_by_month.each_with_index do |month, index| %>
-            <li class="stat-columns__item <%= "is-current" if index == revenue_by_month.size - 1 %>">
-              <span class="stat-columns__value"><%= month[:value] %></span>
+          <% revenue_by_month.each do |month| %>
+            <li class="stat-columns__item <%= "is-current" if month.equal?(revenue_by_month.last) %>">
+              <span class="stat-columns__value"><%= short_money(month[:value]) %></span>
               <span class="stat-columns__area" aria-hidden="true">
-                <span class="stat-columns__bar" style="height: <%= month[:percent] %>%"></span>
+                <span class="stat-columns__bar" style="height: <%= bar_percent(month[:value], revenue_max) %>%"></span>
               </span>
-              <span class="stat-columns__label"><%= month[:label] %></span>
+              <span class="stat-columns__label"><%= month_name(month[:month]) %></span>
             </li>
           <% end %>
         </ul>
@@ -148,21 +132,24 @@
           <h3 class="stat-card__title">Formas de pagamento</h3>
           <p class="stat-card__subtitle">Participação na receita do mês</p>
         </header>
-        <div class="stat-donut-wrapper">
-          <div class="stat-donut" aria-hidden="true"
-               style="background: conic-gradient(var(--color-primary) 0 58%, var(--color-accent) 0 85%, var(--color-secondary) 0 95%, var(--color-inactive) 0 100%)">
-            <span class="stat-donut__center"><strong>58%</strong>Pix</span>
+        <% if payment_methods.any? %>
+          <div class="stat-donut-wrapper">
+            <div class="stat-donut" aria-hidden="true" style="<%= donut_gradient(payment_methods) %>">
+              <span class="stat-donut__center"><strong><%= payment_methods.first[:percent] %>%</strong></span>
+            </div>
+            <ul class="stat-legend">
+              <% payment_methods.each_with_index do |method, index| %>
+                <li class="stat-legend__item">
+                  <span class="stat-swatch stat-swatch--<%= chart_color(index) %>" aria-hidden="true"></span>
+                  <span class="stat-legend__label"><%= method[:label] %></span>
+                  <span class="stat-legend__value"><%= method[:percent] %>%</span>
+                </li>
+              <% end %>
+            </ul>
           </div>
-          <ul class="stat-legend">
-            <% payment_methods.each do |method| %>
-              <li class="stat-legend__item">
-                <span class="stat-swatch stat-swatch--<%= method[:color] %>" aria-hidden="true"></span>
-                <span class="stat-legend__label"><%= method[:label] %></span>
-                <span class="stat-legend__value"><%= method[:percent] %>%</span>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+        <% else %>
+          <p class="stat-card__subtitle">Nenhum pagamento neste mês.</p>
+        <% end %>
       </article>
     </div>
   </section>
@@ -174,21 +161,21 @@
     <div class="stat-grid">
       <article class="stat-card">
         <header class="stat-card__header">
-          <h3 class="stat-card__title">Matrículas e cancelamentos</h3>
+          <h3 class="stat-card__title">Matrículas e evasões</h3>
           <ul class="stat-legend stat-legend--inline">
             <li class="stat-legend__item"><span class="stat-swatch stat-swatch--primary" aria-hidden="true"></span>Matrículas</li>
-            <li class="stat-legend__item"><span class="stat-swatch stat-swatch--danger" aria-hidden="true"></span>Cancelamentos</li>
+            <li class="stat-legend__item"><span class="stat-swatch stat-swatch--danger" aria-hidden="true"></span>Venceram sem renovar</li>
           </ul>
         </header>
         <ul class="stat-columns">
           <% enrollments.each do |month| %>
             <li class="stat-columns__item">
-              <span class="stat-columns__value"><%= month[:new] %> / <%= month[:canceled] %></span>
+              <span class="stat-columns__value"><%= month[:new] %> / <%= month[:lost] %></span>
               <span class="stat-columns__area" aria-hidden="true">
-                <span class="stat-columns__bar stat-columns__bar--primary" style="height: <%= month[:new] * 100 / enrollments_max %>%"></span>
-                <span class="stat-columns__bar stat-columns__bar--danger" style="height: <%= month[:canceled] * 100 / enrollments_max %>%"></span>
+                <span class="stat-columns__bar stat-columns__bar--primary" style="height: <%= bar_percent(month[:new], enrollments_max) %>%"></span>
+                <span class="stat-columns__bar stat-columns__bar--danger" style="height: <%= bar_percent(month[:lost], enrollments_max) %>%"></span>
               </span>
-              <span class="stat-columns__label"><%= month[:label] %></span>
+              <span class="stat-columns__label"><%= month_name(month[:month]) %></span>
             </li>
           <% end %>
         </ul>
@@ -197,27 +184,23 @@
       <article class="stat-card">
         <header class="stat-card__header">
           <h3 class="stat-card__title">Renovações do mês</h3>
-          <p class="stat-card__subtitle">142 de 156 planos renovados</p>
+          <p class="stat-card__subtitle"><%= renewals[:renewed] %> de <%= renewals[:expired] %> planos vencidos foram renovados</p>
         </header>
         <div class="stat-progress" aria-hidden="true">
-          <span class="stat-progress__fill" style="width: 91%"></span>
+          <span class="stat-progress__fill" style="width: <%= renewal_rate %>%"></span>
         </div>
         <dl class="stat-list">
           <div class="stat-list__row">
             <dt>Vencem em 7 dias</dt>
-            <dd>15 alunos</dd>
+            <dd><%= pluralize(@stats.expiring_soon, "aluno") %></dd>
           </div>
           <div class="stat-list__row">
             <dt>Vencidos sem renovar</dt>
-            <dd>23 alunos</dd>
+            <dd><%= pluralize(@stats.overdue_students, "aluno") %></dd>
           </div>
           <div class="stat-list__row">
             <dt>Evasão no mês</dt>
-            <dd>3,7%</dd>
-          </div>
-          <div class="stat-list__row">
-            <dt>Frequência média</dt>
-            <dd>3,2 treinos/semana</dd>
+            <dd><%= @stats.dropout_rate %>%</dd>
           </div>
         </dl>
       </article>
@@ -232,19 +215,19 @@
       <article class="stat-card">
         <header class="stat-card__header">
           <h3 class="stat-card__title">Alunos por plano</h3>
-          <p class="stat-card__subtitle">209 alunos cadastrados</p>
+          <p class="stat-card__subtitle"><%= pluralize(@stats.total_students, "aluno cadastrado", plural: "alunos cadastrados") %></p>
         </header>
         <div class="stat-stacked" aria-hidden="true">
-          <% students_by_plan.each do |plan| %>
-            <span class="stat-swatch--<%= plan[:color] %>" style="width: <%= plan[:percent] %>%"></span>
+          <% students_by_plan.each_with_index do |plan, index| %>
+            <span class="stat-swatch--<%= chart_color(index) %>" style="width: <%= plan[:percent] %>%"></span>
           <% end %>
         </div>
         <ul class="stat-legend stat-legend--grid">
-          <% students_by_plan.each do |plan| %>
+          <% students_by_plan.each_with_index do |plan, index| %>
             <li class="stat-legend__item">
-              <span class="stat-swatch stat-swatch--<%= plan[:color] %>" aria-hidden="true"></span>
+              <span class="stat-swatch stat-swatch--<%= chart_color(index) %>" aria-hidden="true"></span>
               <span class="stat-legend__label"><%= plan[:label] %></span>
-              <span class="stat-legend__value"><%= plan[:count] %> · <%= plan[:percent] %>%</span>
+              <span class="stat-legend__value"><%= plan[:value] %> · <%= plan[:percent] %>%</span>
             </li>
           <% end %>
         </ul>
@@ -253,16 +236,22 @@
       <article class="stat-card">
         <header class="stat-card__header">
           <h3 class="stat-card__title">Faixa etária</h3>
-          <p class="stat-card__subtitle">Maior público entre 26 e 35 anos</p>
+          <p class="stat-card__subtitle">
+            <% if age_max.to_i.positive? %>
+              Maior público: <%= students_by_age.max_by { |a| a[:value] }[:label] %> anos
+            <% else %>
+              Nenhuma data de nascimento cadastrada
+            <% end %>
+          </p>
         </header>
         <ul class="stat-bars">
           <% students_by_age.each do |age| %>
             <li class="stat-bars__row">
               <span class="stat-bars__label"><%= age[:label] %></span>
               <span class="stat-bars__track" aria-hidden="true">
-                <span class="stat-bars__fill" style="width: <%= age[:percent] %>%"></span>
+                <span class="stat-bars__fill" style="width: <%= bar_percent(age[:value], age_max) %>%"></span>
               </span>
-              <span class="stat-bars__value"><%= age[:count] %></span>
+              <span class="stat-bars__value"><%= age[:value] %></span>
             </li>
           <% end %>
         </ul>
