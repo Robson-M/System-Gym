@@ -50,7 +50,7 @@
               </thead>
               <tbody>
                 <% @students.each do |student| %>
-                  <% payment = student.payments.first %>
+                  <% payment = student.payments.order(paid_at: :desc).first %>
                   <tr class="is-selected" aria-selected="true"
                       data-filter-target="row"
                       data-status="<%= payment&.due_date_active == "Ativo" ? "ativo" : "inativo" %>"
@@ -70,8 +70,8 @@
                     <td><%= student.cpf_student.to_s.gsub(/\D/, '').sub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4') %></td>
                     <td><%= student.created_at.strftime("%d/%m/%Y") %></td>
                     <td><%= student.phone.to_s.gsub(/\D/, '').sub(/(\d{2})(\d{5})(\d{4})/, '(\1)\2-\3') %></td>
-                    <td><%= student.payments.first&.name_plan_used %></td>
-                    <td><span class="badge badge--active"><%= student.payments.first&.due_date_active %></span></td>
+                    <td><%= student.last_payment_student&.name_plan_used %></td>
+                    <td><span class="badge badge--active"><%= student.last_payment_student&.due_date_active %></span></td>
                     <td>
                       <div class="row-actions">
                         <%= link_to student_payments_path(student), class:"btn-row-action" do %>

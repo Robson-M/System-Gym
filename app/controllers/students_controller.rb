@@ -3,8 +3,8 @@ class StudentsController < ApplicationController
 
     def index
         @students = Student.all
+        @students = Student.includes(:plan, :payments).order(:name_student)
         @students = @students.where("name_student ILIKE ?", "%#{params[:q]}%") if params[:q].present?
-        @students = @students.order(:name_student)
         @payments = Payment.all
     end
 

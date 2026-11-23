@@ -11,6 +11,10 @@ class Student < ApplicationRecord
         end
     end
 
+    def last_payment_student
+        payments.order(paid_at: :desc).first
+    end
+
     validates :name_student, presence: true
     validates :phone, length: { is: 11 }
     validates :cpf_student, presence: true
