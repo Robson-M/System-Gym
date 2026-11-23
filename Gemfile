@@ -23,9 +23,6 @@ gem "devise"                # autenticação
 gem "sidekiq"        # jobs assíncronos
 gem "sidekiq-cron"
 
-# Paginação
-gem "kaminari"
-
 group :development, :test do
   gem "debug"               # debugger
   gem "rspec-rails"         # testes
