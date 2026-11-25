@@ -3,6 +3,13 @@ class Student < ApplicationRecord
     belongs_to :plan
     has_many :payments, dependent: :destroy
 
+    def refresh_status!
+        last_payment = payments.order(due_date: :desc).first
+        return unless last_payment
+
+        update(status: last_payment.due_date >= Date.today)
+    end
+
     def status_student
         if status == true
             "Ativo"

@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
                 due_date: Date.today + @student.plan.duration_days.days,
                 status: "paid"
             )
-            CheckDueDatesJob.perform_now
+            @student.refresh_status!
             redirect_to @student, notice: "Aluno cadastrado com sucesso!"
         else
             @plans = Plan.all

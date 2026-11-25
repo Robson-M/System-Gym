@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
     def destroy
         @user = User.find(params[:id])
-        @user.destroy
-        redirect_to users_path, notice: "Usuário excluido com sucesso"
+
+        if @user == current_user
+            redirect_to users_path, alert: "Você não pode excluir a si mesmo"
+        else
+            redirect_to users_path, notice: "Usuário excluido com sucesso"
+        end
     end
 end
