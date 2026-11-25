@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-    before_action :set_payment, only: [ :show, :create, :edit, :update, :destroy ]
+    before_action :set_payment, only: [ :create, :destroy ]
 
     def index
         @payments = Payment.all
@@ -7,10 +7,6 @@ class PaymentsController < ApplicationController
         @payments = @student.payments.order(paid_at: :desc)
         @payment = @student.payments.build
         @plans = Plan.all
-    end
-
-    def show
-        @student = Student.find(params[:id])
     end
 
     def new
@@ -26,17 +22,6 @@ class PaymentsController < ApplicationController
             @plans = Plan.all
             flash.now[:alert] = @payment.errors.full_messages.to_sentence
             render "payments/index", status: :unprocessable_entity
-        end
-    end
-
-    def edit
-    end
-
-    def update
-        if @payment.update(payment_params)
-            redirect_to @payment, notice: "Pagamento efetuado com sucesso"
-        else
-            render :edit, status: :unprocessable_entity
         end
     end
 

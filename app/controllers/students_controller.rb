@@ -5,7 +5,6 @@ class StudentsController < ApplicationController
         @students = Student.all
         @students = Student.includes(:plan, :payments).order(:name_student)
         @students = @students.where("name_student ILIKE ?", "%#{params[:q]}%") if params[:q].present?
-        @payments = Payment.all
     end
 
     def show
