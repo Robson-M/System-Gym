@@ -82,14 +82,14 @@ class GymStatistics
   # ===== Séries para os gráficos =====
 
   def revenue_by_month
-    totals = Payment.where(paid_at: first_month..).group(month_of(:paid_at)).sum(:amount)
+    totals = Payment.where(paid_at: first_month..).group(month_of(Payment.arel_table[:paid_at])).sum(:amount)
     months.map { |month| { month: month, value: totals[month] || 0 } }
   end
 
   # Matrículas = alunos cadastrados no mês.
   # Evasões = planos que venceram no mês e não foram renovados.
   def enrollments_by_month
-    created = Student.where(created_at: first_month..).group(month_of(:created_at)).count
+    created = Student.where(created_at: first_month..).group(month_of(Student.arel_table[:created_at])).count
 
     months.map do |month|
       data = renewals(month)
@@ -138,8 +138,10 @@ class GymStatistics
     today.beginning_of_month << (MONTHS - 1)
   end
 
-  def month_of(column)
-    Arel.sql("DATE_TRUNC('month', #{column})::date")
+  def month_of(attribute)
+    month = Arel::Nodes.build_quoted("month")
+    trunc = Arel::Nodes::NamedFunction.new("DATE_TRUNC", [ month, attribute ])
+    Arel::Nodes::NamedFunction.new("CAST", [ trunc.as("date") ])
   end
 
   def age(birth)
