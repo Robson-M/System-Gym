@@ -1,4 +1,4 @@
-<% content_for :title, "NextFit Admin - Login" %>
+<% content_for :title, "NextFit - Login" %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "loginpage", "data-turbo-track": "dynamic" %>
 <% end %>
@@ -7,9 +7,9 @@
     <%= form_with url: user_session_path, method: :post, scope: :user, class:"login-wrapper" do |form| %>
         <div class="login-card">
             <div class="login-header">
-                <div class="login-logo">N</div>
+                <%= image_tag "logo.png", class:"login-logo" %>
                 <div>
-                    <h1 class="login-title">NextFit Admin</h1>
+                    <h1 class="login-title">NextFit</h1>
                     <p class="login-subtitle">Faça login para acessar o painel</p>
                 </div>
             </div>
@@ -26,9 +26,6 @@
 
             <%= form.submit "Entrar no sistema", class:"btn-primary btn-login" %>
 
-            <div class="login-footer">
-                Esqueceu sua senha? <a href="#">Recuperar acesso</a>
-            </div>
         </div>
     <% end %>
 </main>

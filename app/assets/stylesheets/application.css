@@ -80,9 +80,9 @@ SIDEBAR
     flex-shrink: 0;
 }
 
-.top-header__mark {
-    width: 30px;
-    height: 30px;
+.top-header__logo {
+    width: 32px;
+    height: 32px;
     border-radius: var(--radius-sm);
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     display: flex;
@@ -157,6 +157,7 @@ SIDEBAR
     font-size: 12px;
     font-weight: 600;
     color: var(--color-muted);
+    text-decoration: none;
     font-family: var(--font);
     cursor: pointer;
     transition: var(--transition);
@@ -182,6 +183,7 @@ SIDEBAR
     gap: 9px;
     padding: 4px 10px;
     border-radius: var(--radius-sm);
+    text-decoration: none;
     border: none;
     background: none;
     cursor: pointer;
