@@ -22,6 +22,18 @@
     <% end %>
   </header>
 
+  <!-- ERROS DE VALIDAÇÃO -->
+  <% if @plan.errors.any? %>
+    <div class="form-errors">
+        <h4>Foram encontrados <%= @plan.errors.count %> erro(s):</h4>
+        <ul>
+          <% @plan.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+        </ul>
+    </div>
+  <% end %>
+
   <!-- FORMULÁRIO -->
   <%= form_with model: @plan, class: "form-layout" do |form| %>
     <div class="form-card">

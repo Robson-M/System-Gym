@@ -24,10 +24,13 @@
 
   <!-- ERROS DE VALIDAÇÃO -->
   <% if @plan.errors.any? %>
-    <div class="form-card error_alert">
-      <% @plan.errors.full_messages.each do |msg| %>
-        <p class="error_message">• <%= msg %></p>
-      <% end %>
+    <div class="form-errors">
+        <h4>Foram encontrados <%= @plan.errors.count %> erro(s):</h4>
+        <ul>
+          <% @plan.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+        </ul>
     </div>
   <% end %>
 

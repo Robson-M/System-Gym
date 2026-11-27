@@ -28,7 +28,6 @@ FORM CARD
 ============================================================ */
 .form-layout {
     display: grid;
-    gap: 24px;
     align-items: start;
 }
 

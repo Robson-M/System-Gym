@@ -21,4 +21,9 @@ class Plan < ApplicationRecord
             "Inativo"
         end
     end
+
+    validates :name_plan, presence: true, uniqueness: true
+    validates :duration_days, presence: true
+    validates :price, presence: true
+    validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 end

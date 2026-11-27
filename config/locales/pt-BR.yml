@@ -20,3 +20,8 @@ pt-BR:
         phone: "Telefone"
         plan_id: "Plano"
         street: "Cidade"
+      plan:
+        name_plan: "Nome do plano"
+        price: "Preço"
+        duration_days: "Duração em dias"
+        active: "Ativo"
