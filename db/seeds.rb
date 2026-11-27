@@ -34,7 +34,7 @@ end
 puts "Criando plans..."
 
 plans_data = {
-  vencidos:   { name_plan: "Vencidos",   price: 50,  duration_days: -1,  active: true },
+  vencidos:   { name_plan: "Vencidos (ilustrativo)",   price: 50,  duration_days: -1,  active: true },
   diaria:     { name_plan: "Diaria",     price: 15, duration_days: 1, active: true },
   mensal:     { name_plan: "Mensal",     price: 100,  duration_days: 30,  active: true },
   trimestral: { name_plan: "Trimestral", price: 270, duration_days: 90,  active: true },
