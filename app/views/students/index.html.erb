@@ -1,4 +1,4 @@
-<% content_for :title, "Painel Administrativo - NextFit" %>
+<% content_for :title, "Gestão de Alunos - NextFit" %>
 
 <main class="main" data-controller="filter">
 
@@ -9,7 +9,7 @@
       <%= form.text_field :q, 
         value: params[:q],
         class: "search-bar__input",
-        placeholder: "Buscar aluno por nome ou matricula",
+        placeholder: "Buscar aluno por nome",
         data: { action: "input->search#submit" } %>
         
       <%= form.submit "Buscar", class:"search-bar__submit" %>
