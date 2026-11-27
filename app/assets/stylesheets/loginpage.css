@@ -117,3 +117,14 @@
     color: var(--color-accent);
     text-decoration: underline;
 }
+
+/* Aviso de erro do login */
+.login-alert {
+    padding: 12px 14px;
+    background-color: var(--color-danger-bg);
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius-sm);
+    color: var(--color-danger);
+    font-size: 14px;
+    text-align: center;
+}

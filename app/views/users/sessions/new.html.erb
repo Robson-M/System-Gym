@@ -14,6 +14,10 @@
                 </div>
             </div>
 
+            <% if alert %>
+                <p class="login-alert" role="alert"><%= alert %></p>
+            <% end %>
+
             <div class="form-group">
                 <label for="cpf" class="form-label">CPF</label>
                 <%= form.text_field :cpf, class:"form-input", placeholder:"000.000.000-00" %>
