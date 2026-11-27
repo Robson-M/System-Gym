@@ -3,6 +3,12 @@ class Student < ApplicationRecord
     belongs_to :plan
     has_many :payments, dependent: :destroy
 
+    # Avisos do sino no header
+    scope :birthdays_on, ->(date) {
+        where("EXTRACT(MONTH FROM birth_date) = ? AND EXTRACT(DAY FROM birth_date) = ?", date.month, date.day)
+    }
+    scope :created_on, ->(date) { where(created_at: date.all_day) }
+
     def refresh_status!
         last_payment = payments.order(due_date: :desc).first
         return unless last_payment
