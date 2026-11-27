@@ -6,14 +6,14 @@
     </div>
 
     <div class="top-header__actions">
-      <button class="top-header__badge-btn" type="button">
+      <a href="https://github.com/Robson-M/System-Gym" class="top-header__badge-btn" target="_blanck">
         Novidades
         <span class="top-header__dot"></span>
-      </button>
+      </a>
 
       <div class="top-header__sep"></div>
 
-      <a href="https://wa.me/0000000000000" class="top-header__help-btn">
+      <a href="https://wa.me/0000000000000" class="top-header__help-btn" target="_blanck">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
@@ -24,13 +24,61 @@
 
       <div class="top-header__sep"></div>
 
-      <button class="btn-icon" type="button" aria-label="Notificações">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <span class="btn-icon__dot"></span>
-      </button>
+      <% notices = gym_notices %>
+      <% total_notices = notices[:birthdays].size + notices[:new_students].size %>
+      <details class="notices" name="top-nav">
+        <summary class="btn-icon" aria-label="Avisos (<%= total_notices %>)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <% if total_notices.positive? %>
+            <span class="btn-icon__dot"></span>
+          <% end %>
+        </summary>
+
+        <div class="notices__panel">
+          <p class="notices__title">Avisos de hoje</p>
+
+          <% if total_notices.zero? %>
+            <p class="notices__empty">Nenhum aviso por enquanto.</p>
+          <% end %>
+
+          <% if notices[:birthdays].any? %>
+            <p class="notices__group">Aniversariantes do dia (<%= notices[:birthdays].size %>)</p>
+            <ul class="notices__list">
+              <% notices[:birthdays].each do |student| %>
+                <li>
+                  <%= link_to student_path(student), class: "notices__item" do %>
+                    <span class="notices__icon notices__icon--birthday" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span>
+                    <span class="notices__text">
+                      <strong><%= student.name_student %></strong>
+                      <small>Faz <%= Date.current.year - student.birth_date.year %> anos hoje</small>
+                    </span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <% if notices[:new_students].any? %>
+            <p class="notices__group">Novos alunos hoje (<%= notices[:new_students].size %>)</p>
+            <ul class="notices__list">
+              <% notices[:new_students].each do |student| %>
+                <li>
+                  <%= link_to student_path(student), class: "notices__item" do %>
+                    <span class="notices__icon notices__icon--new" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+                    <span class="notices__text">
+                      <strong><%= student.name_student %></strong>
+                      <small>Matriculado às <%= student.created_at.strftime("%H:%M") %> · <%= student.plan&.name_plan %></small>
+                    </span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </details>
 
       <%= link_to settings_path, class:"btn-icon" do %>
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -47,7 +95,6 @@
         </div>
         <div class="top-header__user-text">
           <span class="top-header__user-name"><%= current_user.name_user rescue "Administrador" %></span>
-          <span class="top-header__user-role">Administrador</span>
         </div>
       <% end %>
 
@@ -67,9 +114,7 @@
 
     </div>
   </div>
-
-
-
+  
   <!-- BARRA 2: nav + busca rápida -->
   <div class="top-header__bar2">
   <nav class="top-header__nav" aria-label="Menu principal">
@@ -85,9 +130,10 @@
     <div class="top-header__nav-menu">
       <ul class="top-header__nav-list">
         <li><%= link_to "Pré-cadastro", new_student_path, class:"top-header__nav-item" %></li>
-        <li><%= link_to "Cliente", students_path, class:"top-header__nav-item" %></li>
+        <li><%= link_to "Alunos", students_path, class:"top-header__nav-item" %></li>
         <li><%= link_to "Funcionário", users_path, class:"top-header__nav-item" %></li>
         <li><%= link_to "Planos", plans_path, class:"top-header__nav-item" %></li>
+        <li><%= link_to "Estatísticas", statistics_path, class:"top-header__nav-item" %></li>
       </ul>
     </div>
   </details>
@@ -99,9 +145,9 @@
       <svg class="top-header__nav-caret" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </summary>
     <div class="top-header__mega-panel">
-      <div class="top-header__mega-filter">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Digite o nome do item do menu">
+      <div class="top-header__mega-notice" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Menu ilustrativo: nem todos os itens estão ativos.</span>
       </div>
 
       <div class="top-header__mega-columns">
@@ -112,7 +158,7 @@
           </p>
           <ul class="top-header__mega-list">
             <li><%= link_to "Pré-cadastro", new_student_path, class:"top-header__mega-link" %></li>
-            <li><%= link_to "Clientes", students_path, class:"top-header__mega-link" %></li>
+            <li><%= link_to "Alunos", students_path, class:"top-header__mega-link" %></li>
             <li><a href="#" class="top-header__mega-link">Mapa de Clientes</a></li>
             <li><a href="#" class="top-header__mega-link">Venda Rápida</a></li>
           </ul>
@@ -159,9 +205,9 @@
       <svg class="top-header__nav-caret" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </summary>
     <div class="top-header__mega-panel">
-      <div class="top-header__mega-filter">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Digite o nome do item do menu">
+      <div class="top-header__mega-notice" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Menu ilustrativo: nem todos os itens estão ativos.</span>
       </div>
 
       <div class="top-header__mega-columns">
@@ -194,7 +240,7 @@
             Financeiro
           </p>
           <ul class="top-header__mega-list">
-            <li><a href="#" class="top-header__mega-link">Gestão Financeira</a></li>
+            <li><%= link_to "Gestão Financeira", statistics_path(anchor: "finance"), class:"top-header__mega-link" %></li>
             <li><a href="#" class="top-header__mega-link">Caixa</a></li>
             <li><a href="#" class="top-header__mega-link">Gateway de Pagamentos</a></li>
             <li><a href="#" class="top-header__mega-link">Gestão de Multiunidades</a></li>
@@ -241,7 +287,7 @@
           </p>
           <ul class="top-header__mega-list">
             <li><a href="#" class="top-header__mega-link">Central de Segurança</a></li>
-            <li><a href="#" class="top-header__mega-link">Ponto de Acesso</a></li>
+            <li><%= link_to "Ponto de Acesso", turnstiles_path, class:"top-header__mega-link" %></li>
             <li><%= link_to "Funcionário", users_path, class:"top-header__mega-link" %></li>
             <li><a href="#" class="top-header__mega-link">Auditoria</a></li>
           </ul>
@@ -267,9 +313,9 @@
       <svg class="top-header__nav-caret" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </summary>
     <div class="top-header__mega-panel">
-      <div class="top-header__mega-filter">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Digite o nome do item do menu">
+      <div class="top-header__mega-notice" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Menu ilustrativo: nem todos os itens estão ativos.</span>
       </div>
 
       <div class="top-header__mega-columns">
@@ -307,9 +353,9 @@
       <svg class="top-header__nav-caret" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </summary>
     <div class="top-header__mega-panel">
-      <div class="top-header__mega-filter">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Digite o nome do item do menu">
+      <div class="top-header__mega-notice" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Menu ilustrativo: nem todos os itens estão ativos.</span>
       </div>
 
       <div class="top-header__mega-columns">
@@ -368,7 +414,7 @@
           <ul class="top-header__mega-list">
             <li><a href="#" class="top-header__mega-link">Vendas Realizadas</a></li>
             <li><a href="#" class="top-header__mega-link">Vendas em Aberto</a></li>
-            <li><a href="#" class="top-header__mega-link">Ticket Médio</a></li>
+            <li><%= link_to "Ticket Médio", statistics_path(anchor: "finance"), class:"top-header__mega-link" %></li>
             <li><a href="#" class="top-header__mega-link">Produtos Vendidos</a></li>
           </ul>
         </div>
@@ -378,15 +424,15 @@
 </nav>
 
     <div class="top-header__right">
-      <%= link_to statistics_path, class: "top-header__help-btn btn-header__right" do %>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-        Estatísticas
-      <% end %>
-
       <%= link_to turnstiles_path, class: "top-header__help-btn btn-header__right" do %>
         <span class="top-header__dot" aria-hidden="true"></span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Catraca
+      <% end %>
+
+      <%= link_to students_path, class: "top-header__help-btn btn-header__right" do %>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Alunos
       <% end %>
 
       <%= link_to new_student_path, class: "top-header__add-btn" do %>
