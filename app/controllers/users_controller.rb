@@ -9,6 +9,7 @@ class UsersController < ApplicationController
         if @user == current_user
             redirect_to users_path, alert: "Você não pode excluir a si mesmo"
         else
+            @user.destroy
             redirect_to users_path, notice: "Usuário excluido com sucesso"
         end
     end
